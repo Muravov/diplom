@@ -12,6 +12,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_USER = 'ROLE_USER';
+    public const ROLE_TEACHER = 'ROLE_TEACHER';
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -23,6 +27,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string", length=180)
+     */
+    private $fio;
 
     /**
      * @ORM\Column(type="json")
@@ -48,6 +57,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setEmail(string $email): self
     {
         $this->email = $email;
+
+        return $this;
+    }
+
+    public function getFio(): ?string
+    {
+        return $this->fio;
+    }
+
+    public function setFio(string $fio): self
+    {
+        $this->fio = $fio;
 
         return $this;
     }
