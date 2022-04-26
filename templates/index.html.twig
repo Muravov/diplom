@@ -10,24 +10,25 @@
                 <p class="lead">Выберите курсовую работы для прохождения антиплагиата.</p>
         </div>
         <div class="row justify-content-md-center">
-                <div class="col-md-auto">
-                        <div class="card-deck mb-3 text-center">
-                                <div class="card mb-4 box-shadow">
-                                        <div class="card-header">
-                                                <h4 class="my-0 font-weight-normal">Курсовая №1</h4>
-                                        </div>
-                                        <div class="card-body">
-                                                <ul class="list-unstyled mt-3 mb-4">
-                                                        <li>Курс 1</li>
-                                                        <li>Семестр 2</li>
-                                                        <li>Информация</li>
-                                                        <li>Описание</li>
-                                                </ul>
-                                                <button type="button" class="btn btn-lg btn-block btn-primary">Пройти</button>
+                {% for coursework in courseworks %}
+                        <div class="col-md-auto">
+                                <div class="card-deck mb-3 text-center">
+                                        <div class="card mb-4 box-shadow">
+                                                <div class="card-header">
+                                                        <h4 class="my-0 font-weight-normal">{{ coursework.name  }}</h4>
+                                                </div>
+                                                <div class="card-body">
+                                                        <ul class="list-unstyled mt-3 mb-4">
+                                                                <li>Курс: {{ coursework.course  }}</li>
+                                                                <li>Семестр: {{ coursework.semester  }}</li>
+                                                                <li>{{ coursework.description  }}</li>
+                                                        </ul>
+                                                        <a href="/coursework/{{ coursework.id }}" type="button" class="btn btn-lg btn-block btn-primary">Пройти</a>
+                                                </div>
                                         </div>
                                 </div>
                         </div>
-                </div>
+                {% endfor %}
         </div>
 </div>
 {% endblock %}

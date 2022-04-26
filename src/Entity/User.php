@@ -20,18 +20,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     *
+     * @var int;
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     *
+     * @var string;
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=180)
+     *
+     * @var string;
      */
     private $fio;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var ?string;
+     */
+    private $gruppa;
 
     /**
      * @ORM\Column(type="json")
@@ -69,6 +82,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFio(string $fio): self
     {
         $this->fio = $fio;
+
+        return $this;
+    }
+
+    public function getGruppa(): ?string
+    {
+        return $this->gruppa;
+    }
+
+    public function setGruppa(string $gruppa): self
+    {
+        $this->gruppa = $gruppa;
 
         return $this;
     }
