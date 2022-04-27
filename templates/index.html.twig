@@ -5,30 +5,59 @@
 {% endblock %}
 {% block body %}
 <div class="container">
-        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-                <h1 class="display-4">Курсовые работы</h1>
-                <p class="lead">Выберите курсовую работы для прохождения антиплагиата.</p>
-        </div>
-        <div class="row justify-content-md-center">
-                {% for coursework in courseworks %}
-                        <div class="col-md-auto">
-                                <div class="card-deck mb-3 text-center">
-                                        <div class="card mb-4 box-shadow">
-                                                <div class="card-header">
-                                                        <h4 class="my-0 font-weight-normal">{{ coursework.name  }}</h4>
-                                                </div>
-                                                <div class="card-body">
-                                                        <ul class="list-unstyled mt-3 mb-4">
-                                                                <li>Курс: {{ coursework.course  }}</li>
-                                                                <li>Семестр: {{ coursework.semester  }}</li>
-                                                                <li>{{ coursework.description  }}</li>
-                                                        </ul>
-                                                        <a href="/coursework/{{ coursework.id }}" type="button" class="btn btn-lg btn-block btn-primary">Пройти</a>
+        {% if header.role == 'Администратор' %}
+                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                        <h1 class="display-4">Курсовые работы</h1>
+                        <p class="lead">Выберите курсовую работу для проверки.</p>
+                </div>
+                <div class="row justify-content-md-center">
+                        {% for coursework in courseworks %}
+                                <div class="col-md-auto">
+                                        <div class="card-deck mb-3 text-center">
+                                                <div class="card mb-4 box-shadow">
+                                                        <div class="card-header">
+                                                                <h4 class="my-0 font-weight-normal">{{ coursework.name  }}</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                                <ul class="list-unstyled mt-3 mb-4">
+                                                                        <li>Курс: {{ coursework.course  }}</li>
+                                                                        <li>Семестр: {{ coursework.semester  }}</li>
+                                                                        <li>{{ coursework.description  }}</li>
+                                                                </ul>
+                                                                <a href="/coursework/{{ coursework.id }}" type="button" class="btn btn-lg btn-block btn-primary">Проверить результаты</a>
+                                                        </div>
                                                 </div>
                                         </div>
                                 </div>
-                        </div>
-                {% endfor %}
-        </div>
+                        {% endfor %}
+                </div>
+
+        {% elseif header.role == 'Пользователь' %}
+                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                        <h1 class="display-4">Курсовые работы</h1>
+                        <p class="lead">Выберите курсовую работу для прохождения антиплагиата.</p>
+                </div>
+                <div class="row justify-content-md-center">
+                        {% for coursework in courseworks %}
+                                <div class="col-md-auto">
+                                        <div class="card-deck mb-3 text-center">
+                                                <div class="card mb-4 box-shadow">
+                                                        <div class="card-header">
+                                                                <h4 class="my-0 font-weight-normal">{{ coursework.name  }}</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                                <ul class="list-unstyled mt-3 mb-4">
+                                                                        <li>Курс: {{ coursework.course  }}</li>
+                                                                        <li>Семестр: {{ coursework.semester  }}</li>
+                                                                        <li>{{ coursework.description  }}</li>
+                                                                </ul>
+                                                                <a href="/coursework/{{ coursework.id }}" type="button" class="btn btn-lg btn-block btn-primary">Пройти</a>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                        {% endfor %}
+                </div>
+        {% endif %}
 </div>
 {% endblock %}

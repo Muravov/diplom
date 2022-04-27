@@ -23,7 +23,8 @@
 
                 <li class="nav-item"><a href="#" class="nav-link">{{ header.fio }} | {{ header.role }}</a></li>
                 {% if header.role == 'Администратор' %}
-                <li class="nav-item"><a href="/add/course" class="nav-link">Добавить курс</a></li>
+                <li class="nav-item"><a href="/admin/add/course" class="nav-link">Добавить курс</a></li>
+                <li class="nav-item"><a href="/add/user" class="nav-link">Добавить пользователя</a></li>
                 {% endif %}
                 <li class="nav-item"><a href="/logout" class="nav-link active" aria-current="page">Выход</a></li>
             </ul>
