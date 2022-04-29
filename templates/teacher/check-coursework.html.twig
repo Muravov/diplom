@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+        {{ parent() }}
+
+{% endblock %}
+{% block body %}
+        <div class="container">
+                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                        <h1 class="display-4">{{ coursework.name  }}</h1>
+                        <p class="lead">Проверка курсовой работы.</p>
+                </div>
+
+                <div class="row justify-content-md-center">
+                        <div class="col-md-6">
+                                <div class="card-deck mb-5 ">
+                                        <div class="card mb-5 box-shadow">
+                                                <form action="{{ path('api_add_user') }}" method="POST">
+                                                        <div class="card-header">
+                                                                <h4 class="my-0 font-weight-normal text-center">Поиск результатов</h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                                <div class="row gy-3">
+                                                                        <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Введите группу</label>
+                                                                                <input class="form-control" id="exampleInputEmail1" name="gruppa" placeholder="Группа">
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                                <label for="exampleInputEmail1">Введите ФИО</label>
+                                                                                <input class="form-control" id="exampleInputEmail1" name="fio" placeholder="Фамилия Имя Отчество">
+                                                                        </div>
+                                                                        <div class="form-group center">
+                                                                                <p><input type="submit"  class="btn btn-lg btn-block btn-primary" value="Регистрация"></p>
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+
+        </div>
+{% endblock %}

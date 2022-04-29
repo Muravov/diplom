@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use phpDocumentor\Reflection\Types\Mixed_;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -100,6 +101,18 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
         }
 
         return $query->fetchAllAssociative();
+    }
+
+    public function addCourseworkResult1(Request $request, string $userId): void
+    {
+        $this->entityManager->beginTransaction();
+        try{
+            $query = $this->connection->executeQuery('INSERT INTO `сoursework_result_1`(`COL 1`) VALUES ("1")');
+            $query->execute();
+            $this->entityManager->commit();
+        } catch (\Exception $exception) {
+            throw $exception;
+        }
     }
 
     public function getCourseworkDescription(Coursework $coursework): array

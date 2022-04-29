@@ -64,8 +64,11 @@ class CourseworkController extends AbstractController
                 }
 
             }
+            $this->courseworkRepository->addCourseworkResult1($request, $this->getUser()->getId());
 
             if($plagiat/$count >= 0.8){
+                $this->courseworkRepository->addCourseworkResult1($request, $this->getUser()->getId());
+
                 return $this->render('success/plagiat.html.twig', [
                     'header' =>  HeaderService::getHeaderData($this->getUser()),
                 ]);
