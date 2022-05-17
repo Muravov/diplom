@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+        {{ parent() }}
+{% endblock %}
+{% block body %}
+        <div class="container">
+                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                        <h1 class="display-4">Курсовая работа принята</h1>
+                </div>
+                <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;">
+                        <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                        <span class="swal2-success-line-tip"></span>
+                        <span class="swal2-success-line-long"></span>
+                        <div class="swal2-success-ring"></div>
+                        <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                        <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+                </div>
+                <div class="row justify-content-md-center">
+                        <div class="page-wrap d-flex flex-row align-items-center">
+                                <div class="container">
+                                        <div class="row justify-content-center">
+                                                <div class="col-md-12 text-center">
+                                                        <span class="display-1 d-block">Успешно</span>
+                                                        <div class="mb-4 lead">Курсовая работа одобрена</div>
+                                                        <a href="/index" class="btn btn-link">На главную</a>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+                <!------ Include the above in your HEAD tag ---------->
+
+
+
+        </div>
+{% endblock %}

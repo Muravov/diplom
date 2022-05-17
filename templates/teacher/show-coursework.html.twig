@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+        {{ parent() }}
+
+{% endblock %}
+{% block body %}
+<div class="container">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <form action="{{ path('accept_coursework') }}" method="post">
+                        <div class="row justify-content-center mx-auto text-center ms-1">
+                                <div class="col-md-2 ">
+                                        <p><input type="submit"  class="btn btn-success ms-1" name="success" value="Принять"></p>
+                                </div>
+                                <div class="col-md-2">
+                                        <p><input type="submit"  class="btn btn-danger ms-1" name="fuckup" value="Отклонить"></p>
+                                </div>
+
+                        </div>
+
+                </form>
+        </div>
+                <div class="row justify-content-center">
+                        <div class="col-md-4">
+                                <table class="table table-responsive">
+                                        <thead>
+                                        <th scope="row">Параметр</th>
+                                        </thead>
+                                        <tbody>
+                                        {% for data in parameter %}
+                                                <tr>
+                                                <td>{{ data }}</td>
+                                                </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                        </div>
+                        <div class="col-md-4">
+                                <table class="table table-responsive text-center">
+                                        <thead>
+                                        <th scope="row">Значение</th>
+                                        </thead>
+                                        <tbody>
+                                        {% for data in coursework %}
+                                                <tr>
+                                                        <td>{{ data }}</td>
+                                                </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                        </div>
+                </div>
+
+
+</div>
+{% endblock %}

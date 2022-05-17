@@ -64,12 +64,12 @@ class CourseworkController extends AbstractController
                 }
 
             }
-            $this->courseworkRepository->addCourseworkResult1($request, $this->getUser()->getId());
+            $this->courseworkRepository->addCourseworkResult1($request, $this->getUser());
 
             if($plagiat/$count >= 0.8){
                 $this->courseworkRepository->addCourseworkResult1($request, $this->getUser()->getId());
 
-                return $this->render('success/plagiat.html.twig', [
+                return $this->render('success/fuckup.html.twig', [
                     'header' =>  HeaderService::getHeaderData($this->getUser()),
                 ]);
             }
@@ -79,7 +79,7 @@ class CourseworkController extends AbstractController
         ]);
     }
 
-    private function unsetName(array $array): array
+    public function unsetName(array $array): array
     {
         unset(
             $array['COL 1'],

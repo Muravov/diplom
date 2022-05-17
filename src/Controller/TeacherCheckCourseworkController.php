@@ -38,7 +38,7 @@ class TeacherCheckCourseworkController extends AbstractController
     /**
      * @Route("/check/coursework/{coursework}", name="check_coursework")
      */
-    public function addUser(Coursework $coursework): Response
+    public function checkCoursework(Coursework $coursework): Response
     {
         if ($this->getUser()->getRoles()[0] === User::ROLE_USER) {
             throw new \Exception('Access denied');
@@ -53,14 +53,56 @@ class TeacherCheckCourseworkController extends AbstractController
     }
 
     /**
-     * @Route("/api/v1/add/user", name="api_add_user")
+     * @Route("/api/v1/get/coursework", name="api_get_coursework")
      */
-    public function addCourseworkResult1(Request $request): Response
+    public function getCoursework(Request $request): Response
     {
+        $fio = $request->get('fio');
+        $gruppa = $request->get('gruppa');
+        $coursework = $request->get('coursework');
 
+        $courseworkData = $this->courseworkRepository->findCoursework($coursework, $fio, $gruppa);
+        $courseworkResult = array();
+        for ($i = 9; $i < 35; $i++) {
+            array_push($courseworkResult, $courseworkData[$i]);
+        }
 
-        return $this->render('success/success-add-user.html.twig', [
+        $courseworkData = $this->courseworkRepository->getDataCoursework($coursework);
+
+        $parameterName = $courseworkData[0];
+
+        unset(
+            $parameterName['COL 1'],
+            $parameterName['COL 2'],
+            $parameterName['COL 3'],
+            $parameterName['COL 4'],
+            $parameterName['COL 5']
+        );
+
+        return $this->render('teacher/show-coursework.html.twig', [
             'header' =>  HeaderService::getHeaderData($this->getUser()),
+            'coursework' =>  $courseworkResult,
+            'parameter' => $parameterName,
         ]);
+    }
+
+    /**
+     * @Route("/accept/coursework", name="accept_coursework")
+     */
+    public function acceptCoursework(Request $request): Response
+    {
+        if ($this->getUser()->getRoles()[0] === User::ROLE_USER) {
+            throw new \Exception('Access denied');
+        }
+
+        if ($request->get('success')) {
+            return $this->render('teacher/success/success.html.twig', [
+                'header' =>  HeaderService::getHeaderData($this->getUser())
+            ]);
+        } else {
+            return $this->render('teacher/success/fuckup.html.twig', [
+                'header' =>  HeaderService::getHeaderData($this->getUser())
+            ]);
+        }
     }
 }
