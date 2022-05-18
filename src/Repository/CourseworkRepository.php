@@ -132,7 +132,6 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
                     )"
             );
         $query = mysqli_query($linki, $sql);
-        var_dump($query); die;
     }
 
     public function getCourseworkDescription(Coursework $coursework): array
@@ -157,5 +156,54 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
             $courseworkResult = null;
         }
         return $courseworkResult;
+    }
+
+    public function courseworkResultAccept(string $coursework, string $courseworkResultId, UserInterface $prepod, string $assessment): void
+    {
+        $linki = mysqli_connect('localhost', 'root', 'root', 'diplom');
+
+        try{
+            $sql = sprintf("UPDATE `сoursework_result_{$coursework}` SET `status`= 1, `id_prepod`= '{$prepod->getId()}', `COL 4`= '{$prepod->getFio()}', `COL 5`= '{$assessment}' WHERE `id` = '{$courseworkResultId}'");
+            $query = mysqli_query($linki, $sql);
+
+            $sql = sprintf("SELECT * FROM `сoursework_result_1` WHERE `id` = '{$courseworkResultId}'");
+            $query = mysqli_query($linki, $sql);
+            $courseworkResult = mysqli_fetch_array($query);
+
+
+            $sql = sprintf("
+            INSERT INTO `сoursework_1`(
+                `COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6`, `COL 7`, `COL 8`,
+                `COL 9`, `COL 10`, `COL 11`, `COL 12`, `COL 13`, `COL 14`, `COL 15`,
+                `COL 16`, `COL 17`, `COL 18`, `COL 19`, `COL 20`, `COL 21`, `COL 22`,
+                `COL 23`, `COL 24`, `COL 25`, `COL 26`, `COL 27`, `COL 28`, `COL 29`,
+                `COL 30`, `COL 31`)  
+            VALUES (
+                    '{$courseworkResult['COL 1']}', '{$courseworkResult['COL 2']}', '{$courseworkResult['COL 3']}', '{$courseworkResult['COL 4']}',
+                    '{$courseworkResult['COL 5']}', '{$courseworkResult['COL 6']}', '{$courseworkResult['COL 7']}', '{$courseworkResult['COL 8']}', 
+                    '{$courseworkResult['COL 9']}', '{$courseworkResult['COL 10']}', '{$courseworkResult['COL 11']}', '{$courseworkResult['COL 12']}',
+                    '{$courseworkResult['COL 13']}', '{$courseworkResult['COL 14']}', '{$courseworkResult['COL 15']}', '{$courseworkResult['COL 16']}', 
+                    '{$courseworkResult['COL 17']}', '{$courseworkResult['COL 18']}', '{$courseworkResult['COL 19']}', '{$courseworkResult['COL 20']}', 
+                    '{$courseworkResult['COL 21']}', '{$courseworkResult['COL 22']}', '{$courseworkResult['COL 23']}', '{$courseworkResult['COL 24']}',
+                    '{$courseworkResult['COL 25']}', '{$courseworkResult['COL 26']}', '{$courseworkResult['COL 27']}', '{$courseworkResult['COL 28']}',
+                    '{$courseworkResult['COL 29']}', '{$courseworkResult['COL 30']}', '{$courseworkResult['COL 31']}'
+                    )"
+            );
+           $query = mysqli_query($linki, $sql);
+        } catch (\Exception $exception) {
+            $courseworkResult = null;
+        }
+    }
+
+    public function courseworkResultReject(string $coursework, string $courseworkResultId, UserInterface $prepod): void
+    {
+        $linki = mysqli_connect('localhost', 'root', 'root', 'diplom');
+
+        try{
+            $sql = sprintf("UPDATE `сoursework_result_{$coursework}` SET `status`= -1, `id_prepod`= '{$prepod->getId()}', `COL 4`= '{$prepod->getFio()}', `COL 5`= '2' WHERE `id` = '{$courseworkResultId}'");
+            $query = mysqli_query($linki, $sql);
+        } catch (\Exception $exception) {
+            $courseworkResult = null;
+        }
     }
 }

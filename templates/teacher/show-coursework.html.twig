@@ -7,10 +7,34 @@
 <div class="container">
         <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                 <form action="{{ path('accept_coursework') }}" method="post">
+                        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                                <h3 class="display-7">Выберете оценку</h3>
+                                <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="assessment" id="inlineRadio1" value="3">
+                                        <label class="form-check-label" for="inlineRadio1">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="assessment" id="inlineRadio2" value="4">
+                                        <label class="form-check-label" for="inlineRadio2">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="assessment" id="inlineRadio2" value="5">
+                                        <label class="form-check-label" for="inlineRadio2">5</label>
+                                </div>
+                        </div>
+
                         <div class="row justify-content-center mx-auto text-center ms-1">
                                 <div class="col-md-2 ">
                                         <p><input type="submit"  class="btn btn-success ms-1" name="success" value="Принять"></p>
                                 </div>
+
+                                <input type="hidden" name="courseworkResultId"
+                                       value="{{ courseworkResultId }}"
+                                >
+
+                                <input type="hidden" name="courseworkId"
+                                       value="{{ courseworkId }}"
+                                >
                                 <div class="col-md-2">
                                         <p><input type="submit"  class="btn btn-danger ms-1" name="fuckup" value="Отклонить"></p>
                                 </div>

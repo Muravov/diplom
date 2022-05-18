@@ -61,10 +61,15 @@ class TeacherCheckCourseworkController extends AbstractController
         $gruppa = $request->get('gruppa');
         $coursework = $request->get('coursework');
 
-        $courseworkData = $this->courseworkRepository->findCoursework($coursework, $fio, $gruppa);
+        if (!$courseworkResultData = $this->courseworkRepository->findCoursework($coursework, $fio, $gruppa)) {
+            return $this->render('teacher/success/not-found.html.twig', [
+                'header' =>  HeaderService::getHeaderData($this->getUser())
+            ]);
+        }
+
         $courseworkResult = array();
         for ($i = 9; $i < 35; $i++) {
-            array_push($courseworkResult, $courseworkData[$i]);
+            array_push($courseworkResult, $courseworkResultData[$i]);
         }
 
         $courseworkData = $this->courseworkRepository->getDataCoursework($coursework);
@@ -83,6 +88,8 @@ class TeacherCheckCourseworkController extends AbstractController
             'header' =>  HeaderService::getHeaderData($this->getUser()),
             'coursework' =>  $courseworkResult,
             'parameter' => $parameterName,
+            'courseworkId' => $coursework,
+            'courseworkResultId' => $courseworkResultData[0],
         ]);
     }
 
@@ -95,11 +102,19 @@ class TeacherCheckCourseworkController extends AbstractController
             throw new \Exception('Access denied');
         }
 
+        $courseworkResultId = $request->get('courseworkResultId');
+        $courseworkId = $request->get('courseworkId');
+        $assessment = $request->get('assessment');
+
         if ($request->get('success')) {
+            $this->courseworkRepository->courseworkResultAccept($courseworkId, $courseworkResultId, $this->getUser(), $assessment);
+
             return $this->render('teacher/success/success.html.twig', [
                 'header' =>  HeaderService::getHeaderData($this->getUser())
             ]);
         } else {
+            $this->courseworkRepository->courseworkResultReject($courseworkId, $courseworkResultId, $this->getUser());
+
             return $this->render('teacher/success/fuckup.html.twig', [
                 'header' =>  HeaderService::getHeaderData($this->getUser())
             ]);
