@@ -49,9 +49,11 @@ class AdminAddUserController extends AbstractController
             'email' => $request->get('email'),
             'gruppa' => $request->get('gruppa'),
             'fio' => $request->get('fio'),
-            'role' => ['ROLE_USER'],
+            'gender' => $request->get('gender'),
+            'role' => $request->get('role'),
             'password' => $request->get('password')
         ];
+        $roles[] = $usersData['role'];
 
         $newUser = new User();
 
@@ -60,7 +62,8 @@ class AdminAddUserController extends AbstractController
             ->setGruppa($usersData['gruppa'])
             ->setFio($usersData['fio'])
             ->setPassword($this->encoder->encodePassword($newUser, $usersData['password']))
-            ->setRoles($usersData['role']);
+            ->setRoles($roles)
+            ->setGender($usersData['gender']);
 
         $this->em->persist($newUser);
         $this->em->flush();

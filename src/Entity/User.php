@@ -52,6 +52,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $roles = [];
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     *
+     * @var ?string;
+     */
+    private $gender;
+
+    /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
@@ -94,6 +101,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGruppa(string $gruppa): self
     {
         $this->gruppa = $gruppa;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
 
         return $this;
     }

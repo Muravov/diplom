@@ -121,7 +121,7 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
                 `COL 23`, `COL 24`, `COL 25`, `COL 26`, `COL 27`, `COL 28`, `COL 29`,
                 `COL 30`, `COL 31`)  
             VALUES (
-                    '{$id_new}','{$user->getId()}', NULL, 0, '{$user->getFio()}', '{$user->getGruppa()}', NULL, NULL, NULL,
+                    '{$id_new}','{$user->getId()}', NULL, 0, '{$user->getFio()}', '{$user->getGruppa()}', '{$user->getGender()  }', NULL, NULL,
                     '{$request->get("1")}', '{$request->get("2")}', '{$request->get("3")}', '{$request->get("4")}',
                     '{$request->get("5")}', '{$request->get("6")}', '{$request->get("7")}', '{$request->get("8")}',
                     '{$request->get("9")}', '{$request->get("10")}', '{$request->get("11")}', '{$request->get("12")}',
