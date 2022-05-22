@@ -39,7 +39,21 @@
                 {% if result.status == -1 %}
                         <div class="pricing-header mx-auto text-center">
                                 <p class="fs-3">&#10060; Курсовая работа отклонена</p>
+                                <table class="table table-hover table-sm">
+
+                                        <thead>
+                                        <th scope="row">Параметры не прошедшие контроль</th>
+                                        </thead>
+                                        <tbody>
+                                        {% for data in plagiat %}
+                                                <tr>
+                                                        <td>{{ data }}</td>
+                                                </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
                                 <p class="fs-3">Преподаватель: {{ result.7 }}</p>
+
                         </div>
                         <form action="{{ path('app_antiplagiat') }}" method="post">
                                 <table class="table table-hover">

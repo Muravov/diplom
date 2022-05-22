@@ -42,7 +42,7 @@
 
                         </div>
 
-                </form>
+
         </div>
                 <div class="row justify-content-center">
                         <div class="col-md-4">
@@ -63,18 +63,24 @@
                                 <table class="table table-responsive text-center">
                                         <thead>
                                         <th scope="row">Значение</th>
+                                        <th scope="row">Значения не прошедшие контроль</th>
                                         </thead>
                                         <tbody>
+                                        {% set count = 5 %}
                                         {% for data in coursework %}
+                                                {% set count = count + 1 %}
                                                 <tr>
                                                         <td>{{ data }}</td>
+                                                        <td>
+                                                                <input class="form-check-input"  name="fail_{{ count }}" type="checkbox" value="plagiat" id="flexCheckDefault">
+                                                        </td>
                                                 </tr>
                                         {% endfor %}
                                         </tbody>
                                 </table>
                         </div>
                 </div>
-
+        </form>
 
 </div>
 {% endblock %}

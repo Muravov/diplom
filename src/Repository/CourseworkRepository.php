@@ -440,4 +440,122 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
 
         return $result;
     }
+
+    public function courseworkResultReject1(Request $request, string $courseworkResultId, UserInterface $prepod): void
+    {
+            $sql = sprintf("SELECT * FROM `сoursework_result_1` WHERE `id` = '{$courseworkResultId}'");
+            $query = mysqli_query($this->linki, $sql);
+            $courseworkResult = mysqli_fetch_array($query);
+
+            $col = 'col_';
+            for ($i = 6; $i <= 31; $i++) {
+                ${$col.$i} = $request->get("fail_$i") ?? $courseworkResult["COL $i"];
+            }
+
+            $sql = sprintf("UPDATE `сoursework_result_1` SET 
+                `status`= -1, `id_prepod`= '{$prepod->getId()}', `COL 4`= '{$prepod->getFio()}', `COL 5`= '2',
+                `COL 6` = '{$col_6}', `COL 7` = '{$col_7}', `COL 8` = '{$col_8}', `COL 9` = '{$col_9}', `COL 10` = '{$col_10}',
+                `COL 11` = '{$col_11}', `COL 12` = '{$col_12}', `COL 13` = '{$col_13}', `COL 14` = '{$col_14}', `COL 15` = '{$col_15}',
+                `COL 16` = '{$col_16}', `COL 17` = '{$col_17}', `COL 18` = '{$col_18}', `COL 19` = '{$col_19}', `COL 20` = '{$col_20}',
+                `COL 21` = '{$col_21}', `COL 22` = '{$col_22}', `COL 23` = '{$col_23}', `COL 24` = '{$col_24}', `COL 25` = '{$col_25}',
+                `COL 26` = '{$col_26}', `COL 27` = '{$col_27}', `COL 28` = '{$col_28}', `COL 29` = '{$col_29}',
+                `COL 30` = '{$col_30}', `COL 31` = '{$col_31}'
+                    WHERE `id` = '{$courseworkResultId}'");
+            $query = mysqli_query($this->linki, $sql);
+    }
+
+    public function courseworkResultReject2(Request $request, string $courseworkResultId, UserInterface $prepod): void
+    {
+        $sql = sprintf("SELECT * FROM `сoursework_result_2` WHERE `id` = '{$courseworkResultId}'");
+        $query = mysqli_query($this->linki, $sql);
+        $courseworkResult = mysqli_fetch_array($query);
+
+        $col = 'col_';
+        for ($i = 6; $i <= 35; $i++) {
+            ${$col.$i} = $request->get("fail_$i") ?? $courseworkResult["COL $i"];
+        }
+
+        $sql = sprintf("UPDATE `сoursework_result_2` SET 
+                `status`= -1, `id_prepod`= '{$prepod->getId()}', `COL 4`= '{$prepod->getFio()}', `COL 5`= '2',
+                `COL 6` = '{$col_6}', `COL 7` = '{$col_7}', `COL 8` = '{$col_8}', `COL 9` = '{$col_9}', `COL 10` = '{$col_10}',
+                `COL 11` = '{$col_11}', `COL 12` = '{$col_12}', `COL 13` = '{$col_13}', `COL 14` = '{$col_14}', `COL 15` = '{$col_15}',
+                `COL 16` = '{$col_16}', `COL 17` = '{$col_17}', `COL 18` = '{$col_18}', `COL 19` = '{$col_19}', `COL 20` = '{$col_20}',
+                `COL 21` = '{$col_21}', `COL 22` = '{$col_22}', `COL 23` = '{$col_23}', `COL 24` = '{$col_24}', `COL 25` = '{$col_25}',
+                `COL 26` = '{$col_26}', `COL 27` = '{$col_27}', `COL 28` = '{$col_28}', `COL 29` = '{$col_29}',
+                `COL 30` = '{$col_30}', `COL 31` = '{$col_31}', `COL 32` = '{$col_32}', `COL 33` = '{$col_33}', `COL 34` = '{$col_34}', 
+                `COL 35` = '{$col_35}'
+                    WHERE `id` = '{$courseworkResultId}'");
+        $query = mysqli_query($this->linki, $sql);
+    }
+
+    public function courseworkResultReject3(Request $request, string $courseworkResultId, UserInterface $prepod): void
+    {
+        $sql = sprintf("SELECT * FROM `сoursework_result_3` WHERE `id` = '{$courseworkResultId}'");
+        $query = mysqli_query($this->linki, $sql);
+        $courseworkResult = mysqli_fetch_array($query);
+
+        $col = 'col_';
+        for ($i = 6; $i <= 41; $i++) {
+            ${$col.$i} = $request->get("fail_$i") ?? $courseworkResult["COL $i"];
+        }
+
+        $sql = sprintf("UPDATE `сoursework_result_3` SET 
+                `status`= -1, `id_prepod`= '{$prepod->getId()}', `COL 4`= '{$prepod->getFio()}', `COL 5`= '2',
+                `COL 6` = '{$col_6}', `COL 7` = '{$col_7}', `COL 8` = '{$col_8}', `COL 9` = '{$col_9}', `COL 10` = '{$col_10}',
+                `COL 11` = '{$col_11}', `COL 12` = '{$col_12}', `COL 13` = '{$col_13}', `COL 14` = '{$col_14}', `COL 15` = '{$col_15}',
+                `COL 16` = '{$col_16}', `COL 17` = '{$col_17}', `COL 18` = '{$col_18}', `COL 19` = '{$col_19}', `COL 20` = '{$col_20}',
+                `COL 21` = '{$col_21}', `COL 22` = '{$col_22}', `COL 23` = '{$col_23}', `COL 24` = '{$col_24}', `COL 25` = '{$col_25}',
+                `COL 26` = '{$col_26}', `COL 27` = '{$col_27}', `COL 28` = '{$col_28}', `COL 29` = '{$col_29}',
+                `COL 30` = '{$col_30}', `COL 31` = '{$col_31}', `COL 32` = '{$col_32}', `COL 33` = '{$col_33}', `COL 34` = '{$col_34}', 
+                `COL 35` = '{$col_35}', `COL 36` = '{$col_36}', `COL 37` = '{$col_37}', `COL 38` = '{$col_38}', `COL 39` = '{$col_39}', 
+                `COL 40` = '{$col_40}', `COL 41` = '{$col_41}',
+                    WHERE `id` = '{$courseworkResultId}'");
+        $query = mysqli_query($this->linki, $sql);
+    }
+
+    public function courseworkResultReject4(Request $request, string $courseworkResultId, UserInterface $prepod): void
+    {
+        $sql = sprintf("SELECT * FROM `сoursework_result_4` WHERE `id` = '{$courseworkResultId}'");
+        $query = mysqli_query($this->linki, $sql);
+        $courseworkResult = mysqli_fetch_array($query);
+
+        $col = 'col_';
+        for ($i = 6; $i <= 45; $i++) {
+            ${$col.$i} = $request->get("fail_$i") ?? $courseworkResult["COL $i"];
+        }
+
+        $sql = sprintf("UPDATE `сoursework_result_4` SET 
+                `status`= -1, `id_prepod`= '{$prepod->getId()}', `COL 4`= '{$prepod->getFio()}', `COL 5`= '2',
+                `COL 6` = '{$col_6}', `COL 7` = '{$col_7}', `COL 8` = '{$col_8}', `COL 9` = '{$col_9}', `COL 10` = '{$col_10}',
+                `COL 11` = '{$col_11}', `COL 12` = '{$col_12}', `COL 13` = '{$col_13}', `COL 14` = '{$col_14}', `COL 15` = '{$col_15}',
+                `COL 16` = '{$col_16}', `COL 17` = '{$col_17}', `COL 18` = '{$col_18}', `COL 19` = '{$col_19}', `COL 20` = '{$col_20}',
+                `COL 21` = '{$col_21}', `COL 22` = '{$col_22}', `COL 23` = '{$col_23}', `COL 24` = '{$col_24}', `COL 25` = '{$col_25}',
+                `COL 26` = '{$col_26}', `COL 27` = '{$col_27}', `COL 28` = '{$col_28}', `COL 29` = '{$col_29}',
+                `COL 30` = '{$col_30}', `COL 31` = '{$col_31}', `COL 32` = '{$col_32}', `COL 33` = '{$col_33}', `COL 34` = '{$col_34}', 
+                `COL 35` = '{$col_35}', `COL 36` = '{$col_36}', `COL 37` = '{$col_37}', `COL 38` = '{$col_38}', `COL 39` = '{$col_39}', 
+                `COL 40` = '{$col_40}', `COL 41` = '{$col_41}', `COL 42` = '{$col_42}', `COL 43` = '{$col_43}',
+                `COL 44` = '{$col_44}', `COL 45` = '{$col_45}'
+                    WHERE `id` = '{$courseworkResultId}'");
+        $query = mysqli_query($this->linki, $sql);
+    }
+
+    public function plagiatParameter(array $result, string $coursework): array
+    {
+        $sql = sprintf("SELECT * FROM `сoursework_result_{$coursework}` WHERE `id` = '1'");
+        $query = mysqli_query($this->linki, $sql);
+        $parameter = mysqli_fetch_array($query);
+
+        $resultParameter = array();
+
+        $col = 'col_';
+        for ($i = 6; $i <= 50; $i++) {
+            if (isset($result["COL $i"])) {
+                if ($result["COL $i"] === 'plagiat') {
+                    array_push($resultParameter, $parameter["COL $i"]);
+                }
+            }
+        }
+
+        return $resultParameter;
+    }
 }

@@ -40,11 +40,19 @@ class CourseworkController extends AbstractController
 
         $result = $this->courseworkRepository->findCourseworkUser($coursework, $this->getUser());
 
+        if (in_array('plagiat', $result)) {
+            $plagiat = $this->courseworkRepository->plagiatParameter($result, $coursework->getId());
+        } else {
+            $plagiat = null;
+        }
+
+
         return $this->render('coursework.html.twig', [
             'header' =>  HeaderService::getHeaderData($this->getUser()),
             'coursework' => $parameterName,
             'description' => $courseworkDescription[0],
             'result' => $result,
+            'plagiat' => $plagiat,
         ]);
     }
 

@@ -122,12 +122,24 @@ class TeacherCheckCourseworkController extends AbstractController
                     break;
             }
 
-
             return $this->render('teacher/success/success.html.twig', [
                 'header' =>  HeaderService::getHeaderData($this->getUser())
             ]);
         } else {
-            $this->courseworkRepository->courseworkResultReject($courseworkId, $courseworkResultId, $this->getUser());
+            switch ($courseworkId){
+                case 1:
+                    $this->courseworkRepository->courseworkResultReject1($request, $courseworkResultId, $this->getUser());
+                    break;
+                case 2:
+                    $this->courseworkRepository->courseworkResultReject2($request, $courseworkResultId, $this->getUser());
+                    break;
+                case 3:
+                    $this->courseworkRepository->courseworkResultReject3($request, $courseworkResultId, $this->getUser());
+                    break;
+                case 4:
+                    $this->courseworkRepository->courseworkResultReject4($request, $courseworkResultId, $this->getUser());
+                    break;
+            }
 
             return $this->render('teacher/success/fuckup.html.twig', [
                 'header' =>  HeaderService::getHeaderData($this->getUser())
