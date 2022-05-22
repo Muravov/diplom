@@ -61,7 +61,7 @@ class TeacherCheckCourseworkController extends AbstractController
         $gruppa = $request->get('gruppa');
         $coursework = $request->get('coursework');
 
-        if (!$courseworkResultData = $this->courseworkRepository->findCoursework($coursework, $fio, $gruppa)) {
+        if (!$courseworkResultData = $this->courseworkRepository->findCourseworkResult($coursework, $fio, $gruppa)) {
             return $this->render('teacher/success/not-found.html.twig', [
                 'header' =>  HeaderService::getHeaderData($this->getUser())
             ]);
@@ -107,7 +107,21 @@ class TeacherCheckCourseworkController extends AbstractController
         $assessment = $request->get('assessment');
 
         if ($request->get('success')) {
-            $this->courseworkRepository->courseworkResultAccept($courseworkId, $courseworkResultId, $this->getUser(), $assessment);
+            switch ($courseworkId){
+                case 1:
+                    $this->courseworkRepository->courseworkResultAccept1($courseworkId, $courseworkResultId, $this->getUser(), $assessment);
+                    break;
+                case 2:
+                    $this->courseworkRepository->courseworkResultAccept2($courseworkId, $courseworkResultId, $this->getUser(), $assessment);
+                    break;
+                case 3:
+                    $this->courseworkRepository->courseworkResultAccept3($courseworkId, $courseworkResultId, $this->getUser(), $assessment);
+                    break;
+                case 4:
+                    $this->courseworkRepository->courseworkResultAccept4($courseworkId, $courseworkResultId, $this->getUser(), $assessment);
+                    break;
+            }
+
 
             return $this->render('teacher/success/success.html.twig', [
                 'header' =>  HeaderService::getHeaderData($this->getUser())

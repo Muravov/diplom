@@ -10,29 +10,75 @@
                 <p class="lead">{{ description.description }}</p>
         </div>
         <div class="row justify-content-md-center">
-                <form action="{{ path('app_antiplagiat') }}" method="post">
-                        <table class="table table-hover">
-                                <thead>
+                {% if result.status == 'none' %}
+                        <form action="{{ path('app_antiplagiat') }}" method="post">
+                                <table class="table table-hover">
+                                        <thead>
                                         <th scope="row">Параметр</th>
                                         <th scope="row">Значение</th>
-                                </thead>
-                                <tbody>
-                                {% set count = 0 %}
-                                {% for data in coursework %}
-                                        <tr>
-                                                {% set count = count + 1 %}
-                                                <td>{{ data }}</td>
-                                                <td><input class="form-control" type="text" name="{{ count }}" placeholder="Значение" required></td>
-                                        </tr>
-                                {% endfor %}
-                                </tbody>
-                        </table>
-                        <input type="hidden" name="coursework"
-                               value="{{ description.id }}"
-                        >
-                        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-                                <p><input type="submit"  class="btn btn-primary" value="Проверить"></p>
+                                        </thead>
+                                        <tbody>
+                                        {% set count = 0 %}
+                                        {% for data in coursework %}
+                                                <tr>
+                                                        {% set count = count + 1 %}
+                                                        <td>{{ data }}</td>
+                                                        <td><input class="form-control" type="text" name="{{ count }}" placeholder="Значение" required></td>
+                                                </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                                <input type="hidden" name="coursework"
+                                       value="{{ description.id }}"
+                                >
+                                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                                        <p><input type="submit"  class="btn btn-primary" value="Проверить"></p>
+                                </div>
+                        </form>
+                {% endif %}
+                {% if result.status == -1 %}
+                        <div class="pricing-header mx-auto text-center">
+                                <p class="fs-3">&#10060; Курсовая работа отклонена</p>
+                                <p class="fs-3">Преподаватель: {{ result.7 }}</p>
                         </div>
-                </form>
+                        <form action="{{ path('app_antiplagiat') }}" method="post">
+                                <table class="table table-hover">
+                                        <thead>
+                                        <th scope="row">Параметр</th>
+                                        <th scope="row">Значение</th>
+                                        </thead>
+                                        <tbody>
+                                        {% set count = 0 %}
+                                        {% for data in coursework %}
+                                                <tr>
+                                                        {% set count = count + 1 %}
+                                                        <td>{{ data }}</td>
+                                                        <td><input class="form-control" type="text" name="{{ count }}" placeholder="Значение" required></td>
+                                                </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                                <input type="hidden" name="coursework"
+                                       value="{{ description.id }}"
+                                >
+                                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                                        <p><input type="submit"  class="btn btn-primary" value="Проверить"></p>
+                                </div>
+                        </form>
+                {% endif %}
+                {% if result.status == 0 %}
+                        <div class="pricing-header mx-auto text-center">
+                                <p class="fs-3">&#8987; Курсовая работа ожидает проверки</p>
+                        </div>
+                {% endif %}
+                {% if result.status == 1 %}
+                        <div class="pricing-header mx-auto text-center">
+                                <p class="fs-3">&#9989; Антиплагиат пройден</p>
+                                <p class="fs-3">Преподаватель: {{ result.7 }}</p>
+                                <p class="fs-3">Оценка: {{ result.8 }}</p>
+                        </div>
+                {% endif %}
+        </div>
+
 </div>
 {% endblock %}

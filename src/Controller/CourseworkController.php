@@ -28,7 +28,6 @@ class CourseworkController extends AbstractController
     {
         $courseworkDescription = $this->courseworkRepository->getCourseworkDescription($coursework);
         $courseworkData = $this->courseworkRepository->getDataCoursework($coursework->getId());
-
         $parameterName = $courseworkData[0];
 
         unset(
@@ -39,10 +38,13 @@ class CourseworkController extends AbstractController
             $parameterName['COL 5']
         );
 
+        $result = $this->courseworkRepository->findCourseworkUser($coursework, $this->getUser());
+
         return $this->render('coursework.html.twig', [
             'header' =>  HeaderService::getHeaderData($this->getUser()),
             'coursework' => $parameterName,
             'description' => $courseworkDescription[0],
+            'result' => $result,
         ]);
     }
 
@@ -71,8 +73,21 @@ class CourseworkController extends AbstractController
             }
 
         }
+        switch ($request->get('coursework')){
+            case 1:
+                $this->courseworkRepository->addCourseworkResult1($request, $this->getUser());
+                break;
+            case 2:
+                $this->courseworkRepository->addCourseworkResult2($request, $this->getUser());
+                break;
+            case 3:
+                $this->courseworkRepository->addCourseworkResult3($request, $this->getUser());
+                break;
+            case 4:
+                $this->courseworkRepository->addCourseworkResult4($request, $this->getUser());
+                break;
+        }
 
-        $this->courseworkRepository->addCourseworkResult1($request, $this->getUser());
 
         return $this->render('success/success.html.twig', [
             'header' =>  HeaderService::getHeaderData($this->getUser()),
