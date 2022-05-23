@@ -227,12 +227,12 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
         $query = mysqli_query($this->linki, $sql);
     }
 
-    public function getCourseworkDescription(Coursework $coursework): array
+    public function getCourseworkDescription(string $coursework): array
     {
         return $this
             ->createQueryBuilder('coursework')
             ->andWhere('coursework.id = :id')
-            ->setParameter('id', $coursework->getId())
+            ->setParameter('id', $coursework)
             ->getQuery()
             ->getResult()
             ;
@@ -372,7 +372,7 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
 
 
             $sql = sprintf("
-            INSERT INTO `сoursework_3`(
+            INSERT INTO `сoursework_4   `(
                 `COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6`, `COL 7`, `COL 8`,
                 `COL 9`, `COL 10`, `COL 11`, `COL 12`, `COL 13`, `COL 14`, `COL 15`,
                 `COL 16`, `COL 17`, `COL 18`, `COL 19`, `COL 20`, `COL 21`, `COL 22`,
@@ -394,16 +394,6 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
                     '{$courseworkResult['COL 41']}', '{$courseworkResult['COL 42']}', '{$courseworkResult['COL 43']}'
                     )"
             );
-            $query = mysqli_query($this->linki, $sql);
-        } catch (\Exception $exception) {
-            $courseworkResult = null;
-        }
-    }
-
-    public function courseworkResultReject(string $coursework, string $courseworkResultId, UserInterface $prepod): void
-    {
-        try{
-            $sql = sprintf("UPDATE `сoursework_result_{$coursework}` SET `status`= -1, `id_prepod`= '{$prepod->getId()}', `COL 4`= '{$prepod->getFio()}', `COL 5`= '2' WHERE `id` = '{$courseworkResultId}'");
             $query = mysqli_query($this->linki, $sql);
         } catch (\Exception $exception) {
             $courseworkResult = null;
@@ -508,7 +498,7 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
                 `COL 26` = '{$col_26}', `COL 27` = '{$col_27}', `COL 28` = '{$col_28}', `COL 29` = '{$col_29}',
                 `COL 30` = '{$col_30}', `COL 31` = '{$col_31}', `COL 32` = '{$col_32}', `COL 33` = '{$col_33}', `COL 34` = '{$col_34}', 
                 `COL 35` = '{$col_35}', `COL 36` = '{$col_36}', `COL 37` = '{$col_37}', `COL 38` = '{$col_38}', `COL 39` = '{$col_39}', 
-                `COL 40` = '{$col_40}', `COL 41` = '{$col_41}',
+                `COL 40` = '{$col_40}', `COL 41` = '{$col_41}'
                     WHERE `id` = '{$courseworkResultId}'");
         $query = mysqli_query($this->linki, $sql);
     }
@@ -520,7 +510,7 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
         $courseworkResult = mysqli_fetch_array($query);
 
         $col = 'col_';
-        for ($i = 6; $i <= 45; $i++) {
+        for ($i = 6; $i <= 43; $i++) {
             ${$col.$i} = $request->get("fail_$i") ?? $courseworkResult["COL $i"];
         }
 
@@ -533,8 +523,7 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
                 `COL 26` = '{$col_26}', `COL 27` = '{$col_27}', `COL 28` = '{$col_28}', `COL 29` = '{$col_29}',
                 `COL 30` = '{$col_30}', `COL 31` = '{$col_31}', `COL 32` = '{$col_32}', `COL 33` = '{$col_33}', `COL 34` = '{$col_34}', 
                 `COL 35` = '{$col_35}', `COL 36` = '{$col_36}', `COL 37` = '{$col_37}', `COL 38` = '{$col_38}', `COL 39` = '{$col_39}', 
-                `COL 40` = '{$col_40}', `COL 41` = '{$col_41}', `COL 42` = '{$col_42}', `COL 43` = '{$col_43}',
-                `COL 44` = '{$col_44}', `COL 45` = '{$col_45}'
+                `COL 40` = '{$col_40}', `COL 41` = '{$col_41}', `COL 42` = '{$col_42}', `COL 43` = '{$col_43}'
                     WHERE `id` = '{$courseworkResultId}'");
         $query = mysqli_query($this->linki, $sql);
     }
@@ -557,5 +546,75 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
         }
 
         return $resultParameter;
+    }
+
+    public function getGruppa(): ?array
+    {
+        $sql = sprintf("SELECT DISTINCT gruppa FROM user GROUP BY gruppa");
+        $query = mysqli_query($this->linki, $sql);
+        $grupps = mysqli_fetch_all($query);
+        $result = array();
+
+        foreach ($grupps as $gruppa){
+            if ($gruppa[0] != '') {
+                array_push($result, $gruppa[0]);
+            }
+        }
+        sort($result);
+
+        return  $result;
+    }
+
+    public function getStudnets(string $gruppa): ?array
+    {
+        $sql = sprintf("SELECT DISTINCT fio FROM user WHERE gruppa = '{$gruppa}'");
+        $query = mysqli_query($this->linki, $sql);
+        $students = mysqli_fetch_all($query);
+        $result = array();
+
+        foreach ($students as $students){
+            if (isset($gruppa[0])) {
+                array_push($result, $students[0]);
+            }
+        }
+
+        return  $result;
+    }
+
+    public function getCourseworkResult(string $coursework, string $gruppa): ?array
+    {
+        $students = $this->getStudnets($gruppa);
+
+        $courseworkResult = array();
+
+        foreach ($students as $student) {
+            $sql = sprintf("SELECT * FROM `сoursework_result_{$coursework}` WHERE `COL 1` = '{$student}' AND `COL 2` = '{$gruppa}' AND `status` = 1");
+            $query = mysqli_query($this->linki, $sql);
+            $result = mysqli_fetch_array($query);
+
+            if($result) {
+                array_push($courseworkResult, $result);
+                continue;
+            }
+
+            $sql = sprintf("SELECT * FROM `сoursework_result_{$coursework}` WHERE `COL 1` = '{$student}' AND `COL 2` = '{$gruppa}' AND `status` = 0");
+            $query = mysqli_query($this->linki, $sql);
+            $result = mysqli_fetch_array($query);
+
+            if($result) {
+                array_push($courseworkResult, $result);
+                continue;
+            }
+
+            $sql = sprintf("SELECT * FROM `сoursework_result_{$coursework}` WHERE `COL 1` = '{$student}' AND `COL 2` = '{$gruppa}' AND `status` = -1");
+            $query = mysqli_query($this->linki, $sql);
+            $result = mysqli_fetch_array($query);
+
+            if($result) {
+                array_push($courseworkResult, $result);
+            }
+        }
+
+        return $courseworkResult;
     }
 }

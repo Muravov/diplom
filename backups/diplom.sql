@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 29 2022 г., 15:06
+-- Время создания: Май 23 2022 г., 23:02
 -- Версия сервера: 8.0.19
 -- Версия PHP: 7.4.5
 
@@ -24,26 +24,13 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `admin`
---
-
-CREATE TABLE `admin` (
-  `id` int NOT NULL,
-  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Структура таблицы `coursework`
 --
 
 CREATE TABLE `coursework` (
   `id` int NOT NULL,
-  `name` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(2400) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(2400) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `course` int NOT NULL,
   `semester` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -65,7 +52,7 @@ INSERT INTO `coursework` (`id`, `name`, `description`, `course`, `semester`) VAL
 --
 
 CREATE TABLE `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `version` varchar(191) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
   `execution_time` int DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -78,7 +65,8 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 ('DoctrineMigrations\\Version20220418045837', '2022-04-18 08:05:24', 117),
 ('DoctrineMigrations\\Version20220421123033', '2022-04-21 15:30:47', 165),
 ('DoctrineMigrations\\Version20220426061241', '2022-04-26 09:12:57', 145),
-('DoctrineMigrations\\Version20220426074045', '2022-04-26 10:40:52', 94);
+('DoctrineMigrations\\Version20220426074045', '2022-04-26 10:40:52', 94),
+('DoctrineMigrations\\Version20220520075949', '2022-05-20 11:19:16', 60);
 
 -- --------------------------------------------------------
 
@@ -88,23 +76,25 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 
 CREATE TABLE `user` (
   `id` int NOT NULL,
-  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `fio` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `gruppa` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `email` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `fio` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `gruppa` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Дамп данных таблицы `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `roles`, `password`, `fio`, `gruppa`) VALUES
-(1, 'user@example.com', '[\"ROLE_ADMIN\"]', '$2y$13$1qqIXnU3uX6M2gmjmgmlK.H1tEF8rx3dnRi2GT3Yv86Yw62fdcapq', 'Иванов Иван Иванович', NULL),
-(2, 'test_user@yandex.ru', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$SEagovbNjLPmD/8jyxfGPA$Cvq0i2Gj0ycdAKzZFv1pvNiKw92JtSvAEShZmzqRn3U', 'Тестовый Тест Тестович', '15-ИСТ-2'),
-(5, 'test_user@yandex.ru1', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$sgkgLMOmsIJDV5l5uMr26A$DXKTcd3sfwuJU16gSSQkjoBrHjT55WVvYdLl9/RVb7Y', 'test_user@yandex.ru', 'test_user@yandex.ru'),
-(6, 'test@asd.ru', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$RSKEzDdzdkeYWWRRNRs6Aw$WMOFoWDUYdiHarnDhW2HsF5SlsZc+RaUB5uDYPBrjLU', 'test@asd.ru', 'test@asd.ru'),
-(7, 'myravov2010@yandex.ru', '[\"ROLE_USER\"]', '$2y$13$jlJDlwVz64DHY0BHU/71sub.QnlI3zxPn5ZwiAGdeAuKNkFtuJRam', 'Муравов Алексей Анатольевич', '15-ИСТ-2');
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `fio`, `gruppa`, `gender`) VALUES
+(1, 'user@example.com', '[\"ROLE_ADMIN\"]', '$2y$13$1qqIXnU3uX6M2gmjmgmlK.H1tEF8rx3dnRi2GT3Yv86Yw62fdcapq', 'Иванов Иван Иванович', NULL, NULL),
+(2, 'nikishiov@mail.ru', '[\"ROLE_USER\"]', '$2y$13$9ZXihVBBQJTMVdPhnY5zMO6WRm1tkdOLJSxqkLqtM6ggBsLgCXiH.', 'Никишов В.А.', '15-ИСТ-2', 'м'),
+(12, 'nikishin@mail.ru', '[\"ROLE_USER\"]', '$2y$13$9ZXihVBBQJTMVdPhnY5zMO6WRm1tkdOLJSxqkLqtM6ggBsLgCXiH.', 'Никишин А.Е.', '15-ИСТ-2', 'м'),
+(13, 'muravov@mail.ru', '[\"ROLE_USER\"]', '$2y$13$gr9YPNQSiS6WJNjpqkpNmuC7oUy9AvPU1dXpaIx7lYulWSQ13ht3W', 'Муравов А.А.', '15-ИСТ-2', 'м'),
+(14, 'test@asd.ru', '[\"ROLE_USER\"]', '$argon2id$v=19$m=65536,t=4,p=1$Ql/AgOJEa1rEHHlNY2mqGw$Vtd9Ke20nt93/ksUCQe471wsq0S1p77KSGYo9AhdP44', 'Иван Иванович Иванов', '16-СТ', 'ж'),
+(15, 'gladkov@mail.ru', '[\"ROLE_TEACHER\"]', '$2y$13$c.FlNRRR9UI2Lvp/nHF81.I6A0PUArUVhb1gTEChFtmDjk5PBxyta', 'Гладков В.В.', '', 'м');
 
 -- --------------------------------------------------------
 
@@ -113,12 +103,12 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `fio`, `gruppa`) VALUES
 --
 
 CREATE TABLE `сoursework_1` (
-  `COL 1` varchar(33) DEFAULT NULL,
-  `COL 2` varchar(6) DEFAULT NULL,
-  `COL 3` varchar(3) DEFAULT NULL,
-  `COL 4` varchar(16) DEFAULT NULL,
-  `COL 5` varchar(6) DEFAULT NULL,
-  `COL 6` varchar(13) DEFAULT NULL,
+  `COL 1` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 2` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 3` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 4` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 5` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 6` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `COL 7` varchar(29) DEFAULT NULL,
   `COL 8` varchar(37) DEFAULT NULL,
   `COL 9` varchar(39) DEFAULT NULL,
@@ -143,7 +133,7 @@ CREATE TABLE `сoursework_1` (
   `COL 28` varchar(46) DEFAULT NULL,
   `COL 29` varchar(49) DEFAULT NULL,
   `COL 30` varchar(48) DEFAULT NULL,
-  `COL 31` varchar(29) DEFAULT NULL
+  `COL 31` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -243,17 +233,8 @@ INSERT INTO `сoursework_1` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6
 ('Шишов А. Р.', '17ЯР', 'м', 'Дунцев А.В.', '5', 'Сухогруз', '35', '2,7', '285', '5', '3', '0,958', '0,2322', '0,2194', '0,82', '909,608', '40,165', '0,0456', '0,8', '0,1164', '0,15358', '679,1', '15', '0,0949', '63,17', '144506,3', '53,687', '2,427', '13,397', '39,713', '0,242'),
 ('Орлик Е.А. (Миронченков С.Р.)', '11ЯР', 'ж', 'Дунцев А.В.', '', 'Танкер', '28', '3,3', '325', '4', '3', '0,957', '0,284', '0,264', '0,823', '951,4', '30,75', '0,0283', '0,8', '0,1267', '0,189', '545,17', '15', '0,0953', '44,139', '105654,776', '38,313', '0,873', '14,538', '28,72', '0,265'),
 ('Моисеев Т.И. (Миронченков С.Р)', '11ЯР', 'м', 'Дунцев А.В.', '', 'Танкер', '25', '3,3', '310', '6', '3', '0,956', '0,2838', '0,2682', '0,821', '911,025', '28,705', '0,0406', '0,808', '0,1174', '0,188', '496,755', '15,5', '0,0963', '42,477', '98028,696', '36,914', '1,247', '11,106', '2,613', '0,254'),
-('', '', '', '3', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-('', '', '', '1', '10ЯР1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-('', '', '', '10', '11ЯР', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-('', '', '', '12', '12ЯР', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-('', '', '', '16', '13ЯР', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-('', '', '', '13', '14ЯР', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''),
-('ФИО студента', 'Группа', 'Пол', 'ФИО руководителя', 'Оценка', 'Тип судна [1]', 'Мощность гл. турбины, МВт [1]', 'Давление пара перед турбиной, МПа [1]', 'Температура пара перед турбиной, гр [1]', 'Давление в главном конденсаторе, КПа [1]', 'Число регенеративных ступеней подогрева [1]', 'Механический КПД турбины [2]', 'Давление пара перед сепаратором, МПа [2]', 'Давление пара за сепаратором, МПа [2]', 'Внутр. КПД баз. Турбины [2]', 'Внутр. теплоперепад баз. турбины, кДж/кг [2]', 'Расход пара без отборов, кг/с [2]', 'Конеч.влажность пара на выходе из ТВД [2]', 'Относ. внутр. кпд турбины [2]', 'Влажность пара на входе в конденсатор [2]', 'Давление в деаэраторе, МПа [2]', 'Энтальпия питательной воды, кДж/кг [2]', 'Процент пара и тепла на доп. потребителя, % [3]', 'Экономия от регенерации [3]', 'Расход пара на установку, кг/с [3]', 'Расход тепла на установку, кВт [3]', 'Видимый расход пара на турбину, кг/с [3]', 'Колво влаги, отделенное в сепараторе, кг/с [3]', 'Колво пара, отбираемого всеми ступенями, кг/с [3]', 'Колво пара поступающего в конденса тор, кг/с [3]', 'Термический КПД установки [3]'),
-('Борисов М.С.', '16ЯР', 'м', 'Дунцев А.В.', '4', 'Танкер', '24', '2,2', '280', '6', '2', '0,956', '0,189', '0,179', '0,828', '881,405', '28,482', '0,043', '0,805', '0,106', '0,125', '444,354', '17', '0,0593', '42,353', '106444,199', '36,304', '1,502', '4,289', '30,513', '0,225'),
-('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23', '23');
+('Муравов А.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '5', '3', '324', '42', '23', '234', '42', '4', '43', '4', '423', '423', '23', '432', '423', '423', '324', '423', '432', '23', '32', '432', '423', '324', '42', '23', '32'),
+('Никишин А.Е.', '15-ИСТ-2', 'м', 'Гладков В.В.', '3', 'plagiat', '321', 'plagiat', 'plagiat', 'plagiat', '312', '32', '41', '312', '421', '12', '312', '1', '213', '432', '123', '24', '13', '432', '123', '432', '123', '312', '321', '12', '31');
 
 -- --------------------------------------------------------
 
@@ -263,10 +244,10 @@ INSERT INTO `сoursework_1` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6
 
 CREATE TABLE `сoursework_2` (
   `COL 1` varchar(32) DEFAULT NULL,
-  `COL 2` varchar(6) DEFAULT NULL,
-  `COL 3` varchar(3) DEFAULT NULL,
-  `COL 4` varchar(16) DEFAULT NULL,
-  `COL 5` varchar(6) DEFAULT NULL,
+  `COL 2` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 3` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 4` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 5` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `COL 6` varchar(30) DEFAULT NULL,
   `COL 7` varchar(27) DEFAULT NULL,
   `COL 8` varchar(66) DEFAULT NULL,
@@ -394,7 +375,12 @@ INSERT INTO `сoursework_2` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6
 ('Измайлова Д.Р. (Лебедев В.В.)', '11ЯР', 'ж', 'Дунцев А.В.', '', '28', '15', '300', '4', '50', '20', '1460', '0,247', '', '178,8', '5,635', '', '', '', '23,2', '34,99', '', '19,952', '19,05', '0,398', '0,793', '0,326', '0,303', '0,458', '0,087', '0,057', '266,4', '', '', ''),
 ('Шишов А.Р.', '17ЯР', 'ж', 'Дунцев А.В.', '4', '35', '11,3', '280', '4', '50', '25', '1500', '0,242', '13', '177', '5,858', '5,61', '17,1', '17,22', '24,89', '41,93', '', '20,1', '19,14', '0,466', '0,798', '0,435', '0,341', '0,447', '0,094', '0,069', '266,4', '0,261', '0,131', '0,031'),
 ('Орлик Е.М. (Миронченков С.Р.)', '11ЯР', 'ж', 'Дунцев А.В.', '', '28', '20', '315', '4', '50', '20', '1500', '0,265', '10', '163,13', '5,215', '4,98', '15,25', '15,23', '21,7', '34,36', '', '13,524', '19,82', '0,314', '0,79', '0,307', '0,276', '0,438', '0,081', '0,051', '147,8', '0,22', '0,11', '0,053'),
-('Моисеев Т.И. (Миронченков С.Р.)', '11ЯР', 'м', 'Дунцев А.В.', '', '25', '18', '310', '4', '50', '20', '1500', '0,254', '10', '168,8', '5,21', '4,985', '15,46', '15,47', '22,21', '34,57', '', '13,2', '19,5', '0,336', '0,79', '0,314', '0,283', '0,44', '0,084', '0,054', '168', '0,198', '0,099', '0,054');
+('Моисеев Т.И. (Миронченков С.Р.)', '11ЯР', 'м', 'Дунцев А.В.', '', '25', '18', '310', '4', '50', '20', '1500', '0,254', '10', '168,8', '5,21', '4,985', '15,46', '15,47', '22,21', '34,57', '', '13,2', '19,5', '0,336', '0,79', '0,314', '0,283', '0,44', '0,084', '0,054', '168', '0,198', '0,099', '0,054'),
+('Тестовый Тест Тестович', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('Тестовый Тест Тестович', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('Тестовый Тест Тестович', '15-ИСТ-2', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+('Тестовый Тест Тестович', '15-ИСТ-2', '', 'Иванов Иван Иванович', '4', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
+('Никишин А.Е.', '15-ИСТ-2', 'м', 'Гладков В.В.', '4', '123', '432', '23', '32', '123', '432', '132', '234', '123', '423', '32', '412', '312', '21', '2', '1', '321', '12', '31', '312', '2', '32', '321', '432', '123', '432', '3', '432', '312', '432');
 
 -- --------------------------------------------------------
 
@@ -403,11 +389,11 @@ INSERT INTO `сoursework_2` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6
 --
 
 CREATE TABLE `сoursework_3` (
-  `COL 1` varchar(32) DEFAULT NULL,
-  `COL 2` varchar(6) DEFAULT NULL,
-  `COL 3` varchar(3) DEFAULT NULL,
-  `COL 4` varchar(16) DEFAULT NULL,
-  `COL 5` varchar(6) DEFAULT NULL,
+  `COL 1` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 2` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 3` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 4` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 5` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `COL 6` varchar(29) DEFAULT NULL,
   `COL 7` varchar(38) DEFAULT NULL,
   `COL 8` varchar(39) DEFAULT NULL,
@@ -540,7 +526,11 @@ INSERT INTO `сoursework_3` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6
 ('Измайлова Д.Р. (Лебедев В.В.)', '11ЯР', 'ж', 'Аношкин Ю.И.', '', '28', '2,5', '310', '7', '39,12', '', '', '0,797', '', '', '0,81', '', '', '29,289', '', '', '', '', '', '', '0,777', '0,773', '', '5', '4', '0,9', '0,1', '65,2', '0,35', '0,023', '1,2', '116,4', '0,39', '0,02', '28,15', '0,789'),
 ('Шишов А.Р.', '17ЯР', 'м', 'Аношкин Ю.И.', '5', '35', '2,7', '285', '5', '53,45', '2,427', '0,825', '0,814', '0,5122', '0,958', '0,812', '18,712', '17,821', '36,533', '468,8', '529,8', '352,7', '427,4', '0,752', '0,807', '0,738', '0,796', '2389', '5', '6', '0,9', '0,15', '65,65', '0,51', '0,03', '1,2', '86,7', '0,4', '0,023', '36,534', '0,814'),
 ('Орлик Е.М. (Миронченков С.Р.)', '11ЯР', 'ж', 'Аношкин Ю.И.', '', '28', '3,3', '325', '4', '38,313', '0,873', '0,824', '0,8', '0,501', '0,957', '0,812', '14,658', '14,599', '29,257', '495,66', '590,527', '387,43', '470,1', '0,782', '0,796', '0,763', '0,787', '3000', '5', '5', '0,906', '', '75', '0,495', '', '1,163', '113,8', '0,383', '', '28,926', '0,826'),
-('Моисеев Т.И. (Миронченков С.Р.)', '11ЯР', 'м', 'Аношкин Ю.И.', '', '25', '3,3', '310', '6', '36,937', '1,247', '0,871', '0,808', '0,522', '0,956', '0,814', '13,65', '12,5', '26,15', '483,617', '543,135', '376,457', '432,213', '0,778', '0,796', '0,795', '0,784', '3000', '5', '5', '0,865', '0,1', '70,5', '0,495', '0,03', '1,05', '101,8', '0,365', '0,035', '25,678', '0,814');
+('Моисеев Т.И. (Миронченков С.Р.)', '11ЯР', 'м', 'Аношкин Ю.И.', '', '25', '3,3', '310', '6', '36,937', '1,247', '0,871', '0,808', '0,522', '0,956', '0,814', '13,65', '12,5', '26,15', '483,617', '543,135', '376,457', '432,213', '0,778', '0,796', '0,795', '0,784', '3000', '5', '5', '0,865', '0,1', '70,5', '0,495', '0,03', '1,05', '101,8', '0,365', '0,035', '25,678', '0,814'),
+('Тестовый Тест Тестович', '15-ИСТ-2', 'м', 'Иванов Иван Иванович', '4', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
+('Тестовый Тест Тестович', '15-ИСТ-2', 'м', 'Иванов Иван Иванович', '3', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
+('Муравов А.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '5', '234', '23', '423', '234', '4', '432', '234', '23', '423', '23', '432', '23', '32', '432', '443', '43', '324', '23', '42', '432', '43', '34', '324', '42', '42', '34', '234', '43', '324', '324', '234', '42', '43', '32', '32', '34'),
+('Муравов А.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '4', '234', '23', '423', '234', '4', '432', '234', '23', '423', '23', '432', '23', '32', '432', '443', '43', '324', '23', '42', '432', '43', '34', '324', '42', '42', '34', '234', '43', '324', '324', '234', '42', '43', '32', '32', '34');
 
 -- --------------------------------------------------------
 
@@ -549,11 +539,11 @@ INSERT INTO `сoursework_3` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6
 --
 
 CREATE TABLE `сoursework_4` (
-  `COL 1` varchar(32) DEFAULT NULL,
-  `COL 2` varchar(6) DEFAULT NULL,
-  `COL 3` varchar(3) DEFAULT NULL,
-  `COL 4` varchar(16) DEFAULT NULL,
-  `COL 5` varchar(29) DEFAULT NULL,
+  `COL 1` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 2` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 3` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 4` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 5` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `COL 6` varchar(35) DEFAULT NULL,
   `COL 7` varchar(25) DEFAULT NULL,
   `COL 8` varchar(28) DEFAULT NULL,
@@ -687,7 +677,8 @@ INSERT INTO `сoursework_4` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6
 ('Измайлова Д.Р. (Лебедев В.В.)', '11ЯР', 'ж', 'Власичев Г. Н.', '28', '127', '7,5', '10', '', '0,5', '19', '1', '', '71,5', '310', '15', '55', '10', '385,8', '0,256', '1,876', '0,197', '1,075', '2,132', '2,22', '1,005', '0,863', '0,843', '0,9475', '2,22', '1,01', '0,976', '0,742', '0,9539', '0,79913', '1,47577', '', '', '1,538', '1,623', '1,549', '1,624', '7,442'),
 ('Измайлова Д.Р. (Лебедев В.В.)', '17ЯР', 'м', 'Власичев Г. Н.', '35', '145', '8', '10', '12,5', '0,5', '61', '0,5', '', '133', '292,5', '11,3', '95', '12', '723,9', '0,26', '1,496', '0,193', '0,925', '1,689', '2,07', '1,0066', '0,81', '0,875', '0,954', '2,07', '1,006', '0,976', '0,83', '0,954', '0,8057', '1,49', '134', '1934,5', '1,44', '1,51', '1,66322', '1,757', '0,7661'),
 ('Орлик Е.М. (Миронченков С.Р.)', '11ЯР', 'ж', 'Власичев Г. Н.', '28', '105,66', '6,5', '6', '7,33', '0,5', '61', '1', '', '78,2', '325', '20', '68', '7,5', '363,77', '0,21', '1,926', '0,138', '1,061', '2,136', '2,0488', '1,00354', '0,88679', '0,78091', '0,93389', '', '', '', '', '', '0,595', '1,099', '211', '876', '', '', '', '', '1,936'),
-('Моисеев Т.И. (Миронченков С.Р.)', '11ЯР', 'м', 'Власичев Г. Н.', '25', '98,425', '7', '9', '10,33', '0,5', '61', '1', '', '133', '310', '18', '95', '9', '349,43', '0,195', '1,869', '0,134', '1,066', '2,297', '2,0488', '1,0036', '0,896', '0,85894', '0,9542', '', '', '', '', '', '0,779', '1,439', '125', '3520', '', '', '', '', '0,826');
+('Моисеев Т.И. (Миронченков С.Р.)', '11ЯР', 'м', 'Власичев Г. Н.', '25', '98,425', '7', '9', '10,33', '0,5', '61', '1', '', '133', '310', '18', '95', '9', '349,43', '0,195', '1,869', '0,134', '1,066', '2,297', '2,0488', '1,0036', '0,896', '0,85894', '0,9542', '', '', '', '', '', '0,779', '1,439', '125', '3520', '', '', '', '', '0,826'),
+('Никишин А.Е.', '15-ИСТ-2', 'м', 'Гладков В.В.', '4', '23', '534', '234', '435', '23', '42', '42', '54', '324', '423', '435', '454', '43', '543', '432', '435', '234', '43', '43', '52', '52', '235', '42', '42', '423', '54', '432', '5', '3', '34', '432', '432', '32', '432', '432', '32', '34', '32');
 
 -- --------------------------------------------------------
 
@@ -696,10 +687,14 @@ INSERT INTO `сoursework_4` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6
 --
 
 CREATE TABLE `сoursework_result_1` (
-  `COL 1` varchar(33) DEFAULT NULL,
-  `COL 2` varchar(6) DEFAULT NULL,
+  `id` int NOT NULL,
+  `id_user` int NOT NULL,
+  `id_prepod` int DEFAULT NULL,
+  `status` int NOT NULL,
+  `COL 1` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `COL 2` varchar(12) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `COL 3` varchar(3) DEFAULT NULL,
-  `COL 4` varchar(16) DEFAULT NULL,
+  `COL 4` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `COL 5` varchar(6) DEFAULT NULL,
   `COL 6` varchar(13) DEFAULT NULL,
   `COL 7` varchar(29) DEFAULT NULL,
@@ -733,24 +728,202 @@ CREATE TABLE `сoursework_result_1` (
 -- Дамп данных таблицы `сoursework_result_1`
 --
 
-INSERT INTO `сoursework_result_1` (`COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6`, `COL 7`, `COL 8`, `COL 9`, `COL 10`, `COL 11`, `COL 12`, `COL 13`, `COL 14`, `COL 15`, `COL 16`, `COL 17`, `COL 18`, `COL 19`, `COL 20`, `COL 21`, `COL 22`, `COL 23`, `COL 24`, `COL 25`, `COL 26`, `COL 27`, `COL 28`, `COL 29`, `COL 30`, `COL 31`) VALUES
-('ФИО студента', 'Группа', 'Пол', 'ФИО руководителя', 'Оценка', 'Тип судна [1]', 'Мощность гл. турбины, МВт [1]', 'Давление пара перед турбиной, МПа [1]', 'Температура пара перед турбиной, гр [1]', 'Давление в главном конденсаторе, КПа [1]', 'Число регенеративных ступеней подогрева [1]', 'Механический КПД турбины [2]', 'Давление пара перед сепаратором, МПа [2]', 'Давление пара за сепаратором, МПа [2]', 'Внутр. КПД баз. Турбины [2]', 'Внутр. теплоперепад баз. турбины, кДж/кг [2]', 'Расход пара без отборов, кг/с [2]', 'Конеч.влажность пара на выходе из ТВД [2]', 'Относ. внутр. кпд турбины [2]', 'Влажность пара на входе в конденсатор [2]', 'Давление в деаэраторе, МПа [2]', 'Энтальпия питательной воды, кДж/кг [2]', 'Процент пара и тепла на доп. потребителя, % [3]', 'Экономия от регенерации [3]', 'Расход пара на установку, кг/с [3]', 'Расход тепла на установку, кВт [3]', 'Видимый расход пара на турбину, кг/с [3]', 'Колво влаги, отделенное в сепараторе, кг/с [3]', 'Колво пара, отбираемого всеми ступенями, кг/с [3]', 'Колво пара поступающего в конденса тор, кг/с [3]', 'Термический КПД установки [3]'),
-(NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2'),
-('1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1'),
-('1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-('1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `сoursework_result_1` (`id`, `id_user`, `id_prepod`, `status`, `COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6`, `COL 7`, `COL 8`, `COL 9`, `COL 10`, `COL 11`, `COL 12`, `COL 13`, `COL 14`, `COL 15`, `COL 16`, `COL 17`, `COL 18`, `COL 19`, `COL 20`, `COL 21`, `COL 22`, `COL 23`, `COL 24`, `COL 25`, `COL 26`, `COL 27`, `COL 28`, `COL 29`, `COL 30`, `COL 31`) VALUES
+(1, 0, NULL, -1, 'ФИО студента', 'Группа', 'Пол', 'ФИО руководителя', 'Оценка', 'Тип судна [1]', 'Мощность гл. турбины, МВт [1]', 'Давление пара перед турбиной, МПа [1]', 'Температура пара перед турбиной, гр [1]', 'Давление в главном конденсаторе, КПа [1]', 'Число регенеративных ступеней подогрева [1]', 'Механический КПД турбины [2]', 'Давление пара перед сепаратором, МПа [2]', 'Давление пара за сепаратором, МПа [2]', 'Внутр. КПД баз. Турбины [2]', 'Внутр. теплоперепад баз. турбины, кДж/кг [2]', 'Расход пара без отборов, кг/с [2]', 'Конеч.влажность пара на выходе из ТВД [2]', 'Относ. внутр. кпд турбины [2]', 'Влажность пара на входе в конденсатор [2]', 'Давление в деаэраторе, МПа [2]', 'Энтальпия питательной воды, кДж/кг [2]', 'Процент пара и тепла на доп. потребителя, % [3]', 'Экономия от регенерации [3]', 'Расход пара на установку, кг/с [3]', 'Расход тепла на установку, кВт [3]', 'Видимый расход пара на турбину, кг/с [3]', 'Колво влаги, отделенное в сепараторе, кг/с [3]', 'Колво пара, отбираемого всеми ступенями, кг/с [3]', 'Колво пара поступающего в конденса тор, кг/с [3]', 'Термический КПД установки [3]'),
+(2, 2, 15, -1, 'Никишов В.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '2', 'plagiat', 'plagiat', '32', '12', '32', '21', '412', '21', '32', '12', '32', '12', '43', '123', '421', '121', '32', '21', '12', '31', '432', '123', '123', '432', '123', '432'),
+(3, 12, 15, 1, 'Никишин А.Е.', '15-ИСТ-2', 'м', 'Гладков В.В.', '3', 'plagiat', '321', 'plagiat', 'plagiat', 'plagiat', '312', '32', '41', '312', '421', '12', '312', '1', '213', '432', '123', '24', '13', '432', '123', '432', '123', '312', '321', '12', '31'),
+(4, 13, 15, 1, 'Муравов А.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '5', '3', '324', '42', '23', '234', '42', '4', '43', '4', '423', '423', '23', '432', '423', '423', '324', '423', '432', '23', '32', '432', '423', '324', '42', '23', '32');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `сoursework_result_2`
+--
+
+CREATE TABLE `сoursework_result_2` (
+  `id` int NOT NULL,
+  `id_user` int DEFAULT NULL,
+  `id_prepod` int DEFAULT NULL,
+  `status` int DEFAULT NULL,
+  `COL 1` text CHARACTER SET utf8 COLLATE utf8_general_ci,
+  `COL 2` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 3` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 4` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 5` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 6` varchar(30) DEFAULT NULL,
+  `COL 7` varchar(27) DEFAULT NULL,
+  `COL 8` varchar(66) DEFAULT NULL,
+  `COL 9` varchar(31) DEFAULT NULL,
+  `COL 10` varchar(17) DEFAULT NULL,
+  `COL 11` varchar(43) DEFAULT NULL,
+  `COL 12` varchar(28) DEFAULT NULL,
+  `COL 13` varchar(29) DEFAULT NULL,
+  `COL 14` varchar(20) DEFAULT NULL,
+  `COL 15` varchar(37) DEFAULT NULL,
+  `COL 16` varchar(46) DEFAULT NULL,
+  `COL 17` varchar(48) DEFAULT NULL,
+  `COL 18` varchar(48) DEFAULT NULL,
+  `COL 19` varchar(50) DEFAULT NULL,
+  `COL 20` varchar(43) DEFAULT NULL,
+  `COL 21` varchar(45) DEFAULT NULL,
+  `COL 22` varchar(47) DEFAULT NULL,
+  `COL 23` varchar(31) DEFAULT NULL,
+  `COL 24` varchar(32) DEFAULT NULL,
+  `COL 25` varchar(23) DEFAULT NULL,
+  `COL 26` varchar(46) DEFAULT NULL,
+  `COL 27` varchar(29) DEFAULT NULL,
+  `COL 28` varchar(51) DEFAULT NULL,
+  `COL 29` varchar(30) DEFAULT NULL,
+  `COL 30` varchar(39) DEFAULT NULL,
+  `COL 31` varchar(41) DEFAULT NULL,
+  `COL 32` varchar(36) DEFAULT NULL,
+  `COL 33` varchar(23) DEFAULT NULL,
+  `COL 34` varchar(25) DEFAULT NULL,
+  `COL 35` varchar(29) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `сoursework_result_2`
+--
+
+INSERT INTO `сoursework_result_2` (`id`, `id_user`, `id_prepod`, `status`, `COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6`, `COL 7`, `COL 8`, `COL 9`, `COL 10`, `COL 11`, `COL 12`, `COL 13`, `COL 14`, `COL 15`, `COL 16`, `COL 17`, `COL 18`, `COL 19`, `COL 20`, `COL 21`, `COL 22`, `COL 23`, `COL 24`, `COL 25`, `COL 26`, `COL 27`, `COL 28`, `COL 29`, `COL 30`, `COL 31`, `COL 32`, `COL 33`, `COL 34`, `COL 35`) VALUES
+(1, 0, NULL, NULL, 'ФИО студента', 'Группа', 'Пол', 'ФИО руководителя', 'Оценка', 'Мощность глав.турбины, МВт [1]', 'Давление 1 контура, МПа [1]', 'Температура ТН на входе в насос (выходе из парогенератора), гр [1]', 'Число петель циркуляции, шт [1]', 'Напор ЦНПК, м [1]', 'Подогрев теплоносителя в реакторе, град [1]', 'Частота вращения, об/мин [1]', 'Термический КПД установки [1]', 'Число лопаток РК [2]', 'Коэффициент быстроходности насоса [2]', 'меридиальная скорость на входе в РК, м/сек [2]', 'меридиальная скорость на выходе из РК, м/сек [2]', 'Относительная скорость на входе в МЛП, м/сек [2]', 'Относительная скорость на выходе из МЛП, м/сек [2]', 'Окружная скорость на входе в МЛП, м/сек [2]', 'Окружная скорость на выходе из МЛП, м/сек [2]', 'Абсолютная скорость на выходе из МЛП, м/сек [2]', 'Угол лопатки на входе, град [2]', 'Угол лопатки на выходе, град [2]', 'Подача ГЦНПК, м^3/c [3]', 'Полный КПД насоса ( из последней итерации) [3]', 'Диаметр входа в колесо, м [3]', 'Диаметр расположения середины входных кромок, м [3]', 'Наружный диаметр колеса, м [3]', 'Ширина каналов МЛП на входе в РК, м [3]', 'Ширина каналов МЛП на выходе из РК, м [3]', 'Полезная мощность двигателя, кВт [3]', 'Длина подшипника, м [3]', 'Диаметр подшипника, м [3]', 'Толщина стенки корпуса, м [3]'),
+(2, 2, 15, -1, 'Никишов В.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '2', 'plagiat', '123', '41', 'plagiat', 'plagiat', '43', '213', '31', '432', '123', '23', '123', '31', '12', '31', '31', '12', '321', '31', '31', '12', '321', '432', '12', '31', '2', '12', '31', '321', '342'),
+(3, 12, 15, 1, 'Никишин А.Е.', '15-ИСТ-2', 'м', 'Гладков В.В.', '4', '123', '432', '23', '32', '123', '432', '132', '234', '123', '423', '32', '412', '312', '21', '2', '1', '321', '12', '31', '312', '2', '32', '321', '432', '123', '432', '3', '432', '312', '432');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `сoursework_result_3`
+--
+
+CREATE TABLE `сoursework_result_3` (
+  `id` int NOT NULL,
+  `id_user` int NOT NULL,
+  `id_prepod` int DEFAULT NULL,
+  `status` int NOT NULL,
+  `COL 1` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 2` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 3` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 4` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 5` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 6` varchar(29) DEFAULT NULL,
+  `COL 7` varchar(38) DEFAULT NULL,
+  `COL 8` varchar(39) DEFAULT NULL,
+  `COL 9` varchar(40) DEFAULT NULL,
+  `COL 10` varchar(40) DEFAULT NULL,
+  `COL 11` varchar(46) DEFAULT NULL,
+  `COL 12` varchar(53) DEFAULT NULL,
+  `COL 13` varchar(29) DEFAULT NULL,
+  `COL 14` varchar(22) DEFAULT NULL,
+  `COL 15` varchar(28) DEFAULT NULL,
+  `COL 16` varchar(34) DEFAULT NULL,
+  `COL 17` varchar(22) DEFAULT NULL,
+  `COL 18` varchar(21) DEFAULT NULL,
+  `COL 19` varchar(27) DEFAULT NULL,
+  `COL 20` varchar(34) DEFAULT NULL,
+  `COL 21` varchar(34) DEFAULT NULL,
+  `COL 22` varchar(34) DEFAULT NULL,
+  `COL 23` varchar(34) DEFAULT NULL,
+  `COL 24` varchar(17) DEFAULT NULL,
+  `COL 25` varchar(17) DEFAULT NULL,
+  `COL 26` varchar(26) DEFAULT NULL,
+  `COL 27` varchar(26) DEFAULT NULL,
+  `COL 28` varchar(32) DEFAULT NULL,
+  `COL 29` varchar(31) DEFAULT NULL,
+  `COL 30` varchar(31) DEFAULT NULL,
+  `COL 31` varchar(33) DEFAULT NULL,
+  `COL 32` varchar(55) DEFAULT NULL,
+  `COL 33` varchar(46) DEFAULT NULL,
+  `COL 34` varchar(45) DEFAULT NULL,
+  `COL 35` varchar(35) DEFAULT NULL,
+  `COL 36` varchar(33) DEFAULT NULL,
+  `COL 37` varchar(46) DEFAULT NULL,
+  `COL 38` varchar(45) DEFAULT NULL,
+  `COL 39` varchar(35) DEFAULT NULL,
+  `COL 40` varchar(27) DEFAULT NULL,
+  `COL 41` varchar(33) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `сoursework_result_3`
+--
+
+INSERT INTO `сoursework_result_3` (`id`, `id_user`, `id_prepod`, `status`, `COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6`, `COL 7`, `COL 8`, `COL 9`, `COL 10`, `COL 11`, `COL 12`, `COL 13`, `COL 14`, `COL 15`, `COL 16`, `COL 17`, `COL 18`, `COL 19`, `COL 20`, `COL 21`, `COL 22`, `COL 23`, `COL 24`, `COL 25`, `COL 26`, `COL 27`, `COL 28`, `COL 29`, `COL 30`, `COL 31`, `COL 32`, `COL 33`, `COL 34`, `COL 35`, `COL 36`, `COL 37`, `COL 38`, `COL 39`, `COL 40`, `COL 41`) VALUES
+(1, 0, NULL, 0, 'ФИО студента', 'Группа', 'Пол', 'ФИО руководителя', 'Оценка', 'Мощность гл. турбины, МВт [1]', 'давление пара перед турбиной, МПа  [1]', 'температура пара перед турбиной, гр [1]', 'Давление в главном конденсаторе, КПа [1]', 'Видимый расход пара на турбину, кг/c [1]', 'Колво влаги, отделенное в сепараторе, кг/с [1]', 'Соотношение внутренних теплоперепадов по корпусам [1]', 'Относ. внутр. кпд турбины [1]', 'Относ.мощность ТВД [1]', 'Механический КПД турбины [1]', 'Внутренний кпд проточной части [2]', 'Мощность ТВД, МВт  [2]', 'Мощность ТНД, МВт [2]', 'Суммарная мощность, МВт [2]', 'Адиаб.теплоперепад ТВД, кДж/кг [2]', 'Адиаб.теплоперепад ТНД, кДж/кг [2]', 'Внутр.теплоперепад ТВД, кДж/кг [2]', 'Внутр.теплоперепад ТНД, кДж/кг [2]', 'Внутр.кпд ТВД [2]', 'Внутр.кпд ТНД [2]', 'Внутр.кпд корпусов ТВД [2]', 'Внутр.кпд корпусов ТНД [2]', 'Частота вращения ТВД, об/мин [2]', 'Число ступеней цилиндра ТВД [3]', 'Число ступеней цилиндра ТНД [3]', 'Диаметр первой ступени ТВД, м [3]', 'Реактивность на среднем диаметре первой ступени ТВД [3]', 'Теплоперепад на первой ступени ТВД, кДж/кг [3]', 'Отношение скоростей на первой ступени ТВД [3]', 'Коэффициент удержания тепла ТВД [3]', 'Диаметр первой ступени ТНД, м [3]', 'Теплоперепад на первой ступени ТНД, кДж/кг [3]', 'Отношение скоростей на первой ступени ТНД [3]', 'Коэффициент удержания тепла ТНД [3]', 'Расчётная мощность, МВт [3]', 'Расчётный КПД проточной части [3]'),
+(2, 2, NULL, 0, 'Никишов В.А.', '15-ИСТ-2', 'м', NULL, NULL, '123', '432', '121', '21', '312', '324', '543', '31', '32', '12', '432', '312', '432', '213', '43', '23', '432', '23', '423', '23', '42', '234', '42', '23', '432', '23', '432', '324', '4322', '43', '34', '43', '23', '432', '432', '234'),
+(3, 12, 15, 0, 'Никишин А.Е.', '15-ИСТ-2', 'м', 'Гладков В.В.', '2', 'plagiat', 'plagiat', '42', '432', '2', '432', '432', '423', '23', '32', '4', '234', '43', '432', '423', '23', '432', '423', '23', '423', '423', '23', '43', '234', '234', '234', '42', '23', '43', '234', '543', '324', '42', '543', '543', '324'),
+(4, 13, 15, 1, 'Муравов А.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '4', '234', '23', '423', '234', '4', '432', '234', '23', '423', '23', '432', '23', '32', '432', '443', '43', '324', '23', '42', '432', '43', '34', '324', '42', '42', '34', '234', '43', '324', '324', '234', '42', '43', '32', '32', '34');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `сoursework_result_4`
+--
+
+CREATE TABLE `сoursework_result_4` (
+  `id` int NOT NULL,
+  `id_user` int NOT NULL,
+  `id_prepod` int DEFAULT NULL,
+  `status` int NOT NULL,
+  `COL 1` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 2` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 3` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 4` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 5` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `COL 6` varchar(35) DEFAULT NULL,
+  `COL 7` varchar(25) DEFAULT NULL,
+  `COL 8` varchar(28) DEFAULT NULL,
+  `COL 9` varchar(28) DEFAULT NULL,
+  `COL 10` varchar(29) DEFAULT NULL,
+  `COL 11` varchar(18) DEFAULT NULL,
+  `COL 12` varchar(29) DEFAULT NULL,
+  `COL 13` varchar(23) DEFAULT NULL,
+  `COL 14` varchar(32) DEFAULT NULL,
+  `COL 15` varchar(39) DEFAULT NULL,
+  `COL 16` varchar(27) DEFAULT NULL,
+  `COL 17` varchar(44) DEFAULT NULL,
+  `COL 18` varchar(49) DEFAULT NULL,
+  `COL 19` varchar(35) DEFAULT NULL,
+  `COL 20` varchar(45) DEFAULT NULL,
+  `COL 21` varchar(44) DEFAULT NULL,
+  `COL 22` varchar(42) DEFAULT NULL,
+  `COL 23` varchar(46) DEFAULT NULL,
+  `COL 24` varchar(24) DEFAULT NULL,
+  `COL 25` varchar(69) DEFAULT NULL,
+  `COL 26` varchar(54) DEFAULT NULL,
+  `COL 27` varchar(54) DEFAULT NULL,
+  `COL 28` varchar(54) DEFAULT NULL,
+  `COL 29` varchar(59) DEFAULT NULL,
+  `COL 30` varchar(69) DEFAULT NULL,
+  `COL 31` varchar(53) DEFAULT NULL,
+  `COL 32` varchar(53) DEFAULT NULL,
+  `COL 33` varchar(54) DEFAULT NULL,
+  `COL 34` varchar(59) DEFAULT NULL,
+  `COL 35` varchar(16) DEFAULT NULL,
+  `COL 36` varchar(16) DEFAULT NULL,
+  `COL 37` varchar(24) DEFAULT NULL,
+  `COL 38` varchar(55) DEFAULT NULL,
+  `COL 39` varchar(52) DEFAULT NULL,
+  `COL 40` varchar(59) DEFAULT NULL,
+  `COL 41` varchar(49) DEFAULT NULL,
+  `COL 42` varchar(57) DEFAULT NULL,
+  `COL 43` varchar(72) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `сoursework_result_4`
+--
+
+INSERT INTO `сoursework_result_4` (`id`, `id_user`, `id_prepod`, `status`, `COL 1`, `COL 2`, `COL 3`, `COL 4`, `COL 5`, `COL 6`, `COL 7`, `COL 8`, `COL 9`, `COL 10`, `COL 11`, `COL 12`, `COL 13`, `COL 14`, `COL 15`, `COL 16`, `COL 17`, `COL 18`, `COL 19`, `COL 20`, `COL 21`, `COL 22`, `COL 23`, `COL 24`, `COL 25`, `COL 26`, `COL 27`, `COL 28`, `COL 29`, `COL 30`, `COL 31`, `COL 32`, `COL 33`, `COL 34`, `COL 35`, `COL 36`, `COL 37`, `COL 38`, `COL 39`, `COL 40`, `COL 41`, `COL 42`, `COL 43`) VALUES
+(1, 0, 0, 0, 'ФИО студента', 'Группа', 'Пол', 'ФИО руководителя', 'Мощность гл. турбины, МВт [1]', 'Тепловая мощность реактора, МВт [1]', 'Обогащение топлива, % [1]', 'Наружный диаметр ТВЭ, мм [1]', 'Шаг расположения ТВЭ, мм [1]', 'Толщина оболочки ТВЭЛ, мм [1]', 'Количество ТВЭ [1]', 'Толщина стенки канала, мм [1]', 'Размер под ключ, мм [1]', 'Шаг расположения каналов, мм [1]', 'Средняя температура по реактору, гр.[1]', 'Давление 1 контура, МПа [1]', 'Диаметр канала (если не дан размер под ключ)', 'Тепловая мощность, снимаемая с метра длины, кВт/м', 'Температура нейтронного газа, К [2]', 'Макроскопическое сечение поглощения, 1/см [2]', 'Макроскопическое сечение рассеяния, 1/см [2]', 'Макроскопическое сечение деления, 1/см [2]', 'Макроскопическое транпортное сечение, 1/см [2]', 'полное сечение, 1/см [2]', 'Количество нейтронов на 1 акт поглощения ураном235 нейтрона (гом) [2]', 'Коэффициент размножения на быстрых нейтронах (гом) [2]', 'Вероятность избежать резонансного поглощения (гом) [2]', 'Коэффициент использования тепловых нейтронов (гом) [2]', 'Вероятность избежать утечки нейтронов из реактора (гом) [2]', 'Количество нейтронов на 1 акт поглощения ураном235 нейтрона (гет) [2]', 'Коэффициент размножения на быстрых нейтронах (гет)[2]', 'Вероятность избежать резонансного поглощения (гет)[2]', 'Коэффициент использования тепловых нейтронов (гет) [2]', 'Вероятность избежать утечки нейтронов из реактора (гет) [2]', 'Радиус АЗ, м [3]', 'Высота АЗ, м [3]', 'Количество ячеек, шт [3]', 'Уточненное значение величины кампании реактора, сут [3]', 'Эффективный коэффициент размножения (гомогенный) [3]', 'Коэффициент размножения в бесконечной среде (гомогенный)[3]', 'Эффективный коэффициент размножения (гетерог) [3]', 'Коэффициент размножения в бесконечной среде (гетерог) [3]', 'Средняя плотность потока нейтронов при ном. мощности, 10^13/(с*см^2) [3]'),
+(2, 2, 15, 1, 'Никишов В.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '3', '312', '432', '234', '43', '543', '42', '43', '24', '234', '43', '45', '543', '42', '24', '543', '42', '34', '42', '543', '42', '45', '24', '534', '42', '534', '234', '432', '32', '23', '423', '42', '423', '324', '234', '234', '23', '423', '23'),
+(3, 12, 15, 1, 'Никишин А.Е.', '15-ИСТ-2', 'м', 'Гладков В.В.', '4', '23', '534', '234', '435', '23', '42', '42', '54', '324', '423', '435', '454', '43', '543', '432', '435', '234', '43', '43', '52', '52', '235', '42', '42', '423', '54', '432', '5', '3', '34', '432', '432', '32', '432', '432', '32', '34', '32'),
+(4, 13, 15, 0, 'Муравов А.А.', '15-ИСТ-2', 'м', 'Гладков В.В.', '4', 'plagiat', 'plagiat', '324', '423', '423', '42', '23', '423', '42', '23', '42', '423', '432', '23', '432', '42', '23', '43', '43', '43', '42', '42', '42', '42', '42', '234', '43', '23', '423', '423', '324', '432', '234', '432', '432', '234', '423', '423');
 
 --
 -- Индексы сохранённых таблиц
 --
-
---
--- Индексы таблицы `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `UNIQ_880E0D76E7927C74` (`email`);
 
 --
 -- Индексы таблицы `coursework`
@@ -773,14 +946,32 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`);
 
 --
--- AUTO_INCREMENT для сохранённых таблиц
+-- Индексы таблицы `сoursework_result_1`
 --
+ALTER TABLE `сoursework_result_1`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT для таблицы `admin`
+-- Индексы таблицы `сoursework_result_2`
 --
-ALTER TABLE `admin`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+ALTER TABLE `сoursework_result_2`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `сoursework_result_3`
+--
+ALTER TABLE `сoursework_result_3`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `сoursework_result_4`
+--
+ALTER TABLE `сoursework_result_4`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT для сохранённых таблиц
+--
 
 --
 -- AUTO_INCREMENT для таблицы `coursework`
@@ -792,7 +983,31 @@ ALTER TABLE `coursework`
 -- AUTO_INCREMENT для таблицы `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT для таблицы `сoursework_result_1`
+--
+ALTER TABLE `сoursework_result_1`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+
+--
+-- AUTO_INCREMENT для таблицы `сoursework_result_2`
+--
+ALTER TABLE `сoursework_result_2`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
+
+--
+-- AUTO_INCREMENT для таблицы `сoursework_result_3`
+--
+ALTER TABLE `сoursework_result_3`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+
+--
+-- AUTO_INCREMENT для таблицы `сoursework_result_4`
+--
+ALTER TABLE `сoursework_result_4`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

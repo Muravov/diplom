@@ -14,19 +14,19 @@
                         <div class="col-md-6">
                                 <div class="card-deck mb-5 ">
                                         <div class="card mb-5 box-shadow">
-                                                <form action="{{ path('api_get_coursework') }}" method="POST">
+                                                <form action="{{ path('api_find_students') }}" method="POST">
                                                         <div class="card-header">
                                                                 <h4 class="my-0 font-weight-normal text-center">Поиск результатов</h4>
                                                         </div>
                                                         <div class="card-body">
                                                                 <div class="row gy-3">
                                                                         <div class="form-group">
-                                                                                <label for="gruppa">Введите группу</label>
-                                                                                <input class="form-control" id="gruppa" name="gruppa" placeholder="Группа">
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                                <label for="fio">Введите ФИО</label>
-                                                                                <input class="form-control" id="fio" name="fio" placeholder="Фамилия Имя Отчество">
+                                                                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="gruppa">
+                                                                                        <option value="" selected disabled required>Выберете группу</option>
+                                                                                        {% for gruppa in grupps %}
+                                                                                                <option value="{{ gruppa }}">{{ gruppa }}</option>
+                                                                                        {% endfor %}
+                                                                                </select>
                                                                         </div>
                                                                         <input type="hidden" name="coursework"
                                                                                      value="{{ coursework.id }}"

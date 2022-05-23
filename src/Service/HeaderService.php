@@ -15,16 +15,19 @@ class HeaderService
             $result = [
                 'role' => Roles::NAMES[User::ROLE_ADMIN],
                 'fio' => $user->getFio(),
+                'gruppa' => $user->getGruppa()
             ];
         } elseif ($roles[0] === User::ROLE_TEACHER) {
             $result = [
                 'role' => Roles::NAMES[User::ROLE_TEACHER],
                 'fio' => $user->getFio(),
+                'gruppa' => $user->getGruppa()
                 ];
         } else {
             $result = [
                 'role' => Roles::NAMES[User::ROLE_USER],
                 'fio' => $user->getFio(),
+                'gruppa' => $user->getGruppa()
                 ];
         }
         return $result;

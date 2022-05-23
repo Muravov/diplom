@@ -44,16 +44,39 @@ class TeacherCheckCourseworkController extends AbstractController
             throw new \Exception('Access denied');
         }
 
-        $courseworkDescription = $this->courseworkRepository->getCourseworkDescription($coursework);
+        $courseworkDescription = $this->courseworkRepository->getCourseworkDescription($coursework->getId());
 
-        return $this->render('teacher/check-coursework.html.twig', [
+        $grupps = $this->courseworkRepository->getGruppa();
+
+        return $this->render('teacher/gruppa-coursework.html.twig', [
             'header' =>  HeaderService::getHeaderData($this->getUser()),
-            'coursework' =>  $courseworkDescription[0]
+            'coursework' =>  $courseworkDescription[0],
+            'grupps' => $grupps
         ]);
     }
 
     /**
-     * @Route("/api/v1/get/coursework", name="api_get_coursework")
+     * @Route("/api/v1/find/stundents", name="api_find_students")
+     */
+    public function findStundents(Request $request): Response
+    {
+        $gruppa = $request->get('gruppa');
+        $coursework = $request->get('coursework');
+        $students = $this->courseworkRepository->getStudnets($gruppa);
+
+        $courseworkDescription = $this->courseworkRepository->getCourseworkDescription($coursework);
+        $courseworkResult = $this->courseworkRepository->getCourseworkResult($coursework, $gruppa);
+
+        return $this->render('teacher/students-coursework.html.twig', [
+            'header' =>  HeaderService::getHeaderData($this->getUser()),
+            'coursework' =>  $courseworkDescription[0],
+            'gruppa' => $gruppa,
+            'courseworkResult' => $courseworkResult
+        ]);
+    }
+
+    /**
+     * @Route("/get/coursework", name="api_get_coursework")
      */
     public function getCoursework(Request $request): Response
     {
@@ -66,6 +89,9 @@ class TeacherCheckCourseworkController extends AbstractController
                 'header' =>  HeaderService::getHeaderData($this->getUser())
             ]);
         }
+
+        $student['fio'] = $courseworkResultData[4];
+        $student['gruppa'] = $courseworkResultData[5];
 
         $courseworkResult = array();
         for ($i = 9; $i < 35; $i++) {
@@ -90,6 +116,7 @@ class TeacherCheckCourseworkController extends AbstractController
             'parameter' => $parameterName,
             'courseworkId' => $coursework,
             'courseworkResultId' => $courseworkResultData[0],
+            'student' => $student,
         ]);
     }
 

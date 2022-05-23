@@ -26,7 +26,7 @@ class CourseworkController extends AbstractController
      */
     public function coursework(Coursework $coursework): Response
     {
-        $courseworkDescription = $this->courseworkRepository->getCourseworkDescription($coursework);
+        $courseworkDescription = $this->courseworkRepository->getCourseworkDescription($coursework->getId());
         $courseworkData = $this->courseworkRepository->getDataCoursework($coursework->getId());
         $parameterName = $courseworkData[0];
 
