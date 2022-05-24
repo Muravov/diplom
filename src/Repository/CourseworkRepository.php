@@ -617,4 +617,20 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
 
         return $courseworkResult;
     }
+
+    public function getParameters(Coursework $coursework, string $parameter): array
+    {
+        $sql = sprintf("SELECT `COL 7`, `COL 8` FROM `сoursework_{$coursework->getId()}` WHERE `COL 6` = '{$parameter}'");
+        $query = mysqli_query($this->linki, $sql);
+        $parameters = mysqli_fetch_all($query);
+
+        $result = array();
+
+        foreach ($parameters as $item) {
+            $param = '[' . implode(', ', $item) . ']';
+            array_push($result, $param);
+        }
+
+        return $result;
+    }
 }

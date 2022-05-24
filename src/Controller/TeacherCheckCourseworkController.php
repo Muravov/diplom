@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Repository\CourseworkRepository;
 use App\Service\HeaderService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use \Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -172,5 +173,15 @@ class TeacherCheckCourseworkController extends AbstractController
                 'header' =>  HeaderService::getHeaderData($this->getUser())
             ]);
         }
+    }
+
+    /**
+     * @Route("/get/parameters/{coursework}", name="get_parameter", methods="GET")
+     */
+    public function getParameters(Coursework $coursework, Request $request): Response
+    {
+        return new JsonResponse(
+            $this->courseworkRepository->getParameters($coursework, $request->get('parameter'))
+        );
     }
 }
