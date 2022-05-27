@@ -41,7 +41,7 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
 
         $this->connection = $connection;
         $this->entityManager = $entityManager;
-        $this->linki = mysqli_connect('localhost', 'root', 'root', 'diplom');
+        $this->linki = mysqli_connect('localhost', 'root', '', 'diplom');
     }
 
     /**

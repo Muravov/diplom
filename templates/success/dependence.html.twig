@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+        {{ parent() }}
+{% endblock %}
+{% block body %}
+<div class="container">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                <h1 class="display-4">Результаты прохождения</h1>
+        </div>
+        <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;"><span class="swal2-x-mark"><span class="swal2-x-mark-line-left"></span><span class="swal2-x-mark-line-right"></span></span></div>
+        <div class="row justify-content-md-center">
+                <div class="page-wrap d-flex flex-row align-items-center">
+                        <div class="container">
+                                <div class="row justify-content-center">
+                                        <div class="col-md-12 text-center">
+                                                <span class="display-1 d-block">Ошибка зависимостей</span>
+                                                <a href="/index" class="btn btn-link">На главную</a>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+
+        <!------ Include the above in your HEAD tag ---------->
+
+
+
+</div>
+{% endblock %}

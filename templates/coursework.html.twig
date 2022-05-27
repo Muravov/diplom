@@ -91,6 +91,30 @@
                                 <p class="fs-3">Преподаватель: {{ result.7 }}</p>
                                 <p class="fs-3">Оценка: {{ result.8 }}</p>
                         </div>
+                        <form action="{{ path('app_antiplagiat') }}" method="post">
+                                <table class="table table-hover">
+                                        <thead>
+                                        <th scope="row">Параметр</th>
+                                        <th scope="row">Значение</th>
+                                        </thead>
+                                        <tbody>
+                                        {% set count = 0 %}
+                                        {% for data in coursework %}
+                                                <tr>
+                                                        {% set count = count + 1 %}
+                                                        <td>{{ data }}</td>
+                                                        <td><input class="form-control" type="text" name="{{ count }}" placeholder="Значение" required></td>
+                                                </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                </table>
+                                <input type="hidden" name="coursework"
+                                       value="{{ description.id }}"
+                                >
+                                <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+                                        <p><input type="submit"  class="btn btn-primary" value="Проверить"></p>
+                                </div>
+                        </form>
                 {% endif %}
         </div>
 
