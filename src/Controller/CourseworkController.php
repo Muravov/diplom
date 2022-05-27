@@ -140,7 +140,7 @@ class CourseworkController extends AbstractController
                     echo 'ok';
                     //return $dependenceRender;
                 }
-die;
+
                 $var1 = round($this->stringToFloat($request->get('21')) * 0.85 * 1000, 10);
                 $var2 = round(750 * $this->stringToFloat($request->get('20')) * 9.81 * $this->stringToFloat($request->get('5')) /
                     $this->stringToFloat($request->get('21')) * 0.85 * 1000, 10);
@@ -184,12 +184,10 @@ die;
                 break;
             case 3:
                 echo 3;
-                die();
                 $this->courseworkRepository->addCourseworkResult3($request, $this->getUser());
                 break;
             case 4:
                 echo 4;
-                die();
                 $this->courseworkRepository->addCourseworkResult4($request, $this->getUser());
                 break;
         }
