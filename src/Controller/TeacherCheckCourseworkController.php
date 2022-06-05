@@ -148,6 +148,9 @@ class TeacherCheckCourseworkController extends AbstractController
                 case 4:
                     $this->courseworkRepository->courseworkResultAccept4($courseworkId, $courseworkResultId, $this->getUser(), $assessment);
                     break;
+                case 5:
+                    $this->courseworkRepository->courseworkResultAccept5($courseworkId, $courseworkResultId, $this->getUser(), $assessment);
+                    break;
             }
 
             return $this->render('teacher/success/success.html.twig', [
@@ -166,6 +169,9 @@ class TeacherCheckCourseworkController extends AbstractController
                     break;
                 case 4:
                     $this->courseworkRepository->courseworkResultReject4($request, $courseworkResultId, $this->getUser());
+                    break;
+                case 5:
+                    $this->courseworkRepository->courseworkResultReject5($request, $courseworkResultId, $this->getUser());
                     break;
             }
 

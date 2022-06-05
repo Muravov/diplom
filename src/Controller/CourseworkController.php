@@ -190,6 +190,9 @@ class CourseworkController extends AbstractController
                 echo 4;
                 $this->courseworkRepository->addCourseworkResult4($request, $this->getUser());
                 break;
+            case 5:
+                $this->courseworkRepository->addCourseworkResult5($request, $this->getUser());
+                break;
         }
 
 
