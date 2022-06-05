@@ -127,17 +127,13 @@ class CourseworkController extends AbstractController
                 $var1 = round($this->stringToFloat($request->get('24')) / $this->stringToFloat($request->get('23')), 10);
                 $var2 = round($this->stringToFloat($request->get('25')) / $this->stringToFloat($request->get('26')), 10);
                 if ($var1 !== $var2){
-                    //return $dependenceRender;
+                    return $dependenceRender;
                 }
 
                 $var1 = round($this->stringToFloat($request->get('11')), 10);
-
                 $var2 = round($this->stringToFloat($request->get('13')) * deg2rad(sin($this->stringToFloat($request->get('18')))), 10);
 
-                var_dump($var1);
-                var_dump((sin(14)));
                 if ($var1 !== $var2){
-                    echo 'ok';
                     //return $dependenceRender;
                 }
 
@@ -148,13 +144,13 @@ class CourseworkController extends AbstractController
                 if (($div = $var1 / $var2) < 1) {
                     $div = 1 - $div;
                     if ($div >= 0.08) {
-                        //return $dependenceRender;
+                        return $dependenceRender;
                     }
                 }
                 if (($div = $var2 / $var1) < 1) {
                     $div = 1 - $div;
                     if ($div >= 0.08) {
-                        //return $dependenceRender;
+                        return $dependenceRender;
                     }
                 }
 
@@ -164,33 +160,110 @@ class CourseworkController extends AbstractController
                 if (($div = $var1 / $var2) < 1) {
                     $div = 1 - $div;
                     if ($div >= 0.03) {
-                        //return $dependenceRender;
+                        return $dependenceRender;
                     }
                 }
                 if (($div = $var2 / $var1) < 1) {
                     $div = 1 - $div;
                     if ($div >= 0.03) {
-                        //return $dependenceRender;
+                        return $dependenceRender;
                     }
                 }
 
                 $var = (int)($request->get('7'));
                 if ($var !== 1500 && $var !== 3000){
-                    //return $dependenceRender;
+                    return $dependenceRender;
                 }
 
 
                 $this->courseworkRepository->addCourseworkResult2($request, $this->getUser());
                 break;
             case 3:
-                echo 3;
                 $this->courseworkRepository->addCourseworkResult3($request, $this->getUser());
                 break;
             case 4:
-                echo 4;
+                $var1 = $this->stringToFloat($request->get('36'));
+                $var2 = $this->stringToFloat($request->get('35'));
+
+                if ($var1 < $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = $this->stringToFloat($request->get('38'));
+                $var2 = $this->stringToFloat($request->get('37'));
+
+                if ($var1 < $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = round($this->stringToFloat($request->get('38')) * $this->stringToFloat($request->get('30')));
+                $var2 = $this->stringToFloat($request->get('37'));
+
+                if ($var1 !== $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = round($this->stringToFloat($request->get('36')) * $this->stringToFloat($request->get('25')));
+                $var2 = $this->stringToFloat($request->get('35'));
+
+                if ($var1 !== $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = round($this->stringToFloat($request->get('16')) + $this->stringToFloat($request->get('17')));
+                $var2 = $this->stringToFloat($request->get('20'));
+
+                if ($var1 !== $var2){
+                    return $dependenceRender;
+                }
+
                 $this->courseworkRepository->addCourseworkResult4($request, $this->getUser());
                 break;
             case 5:
+                $var1 = $this->stringToFloat($request->get('5'));
+                $var2 = $this->stringToFloat($request->get('2'));
+
+                if ($var1 < $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = $this->stringToFloat($request->get('5'));
+                $var2 = $this->stringToFloat($request->get('14'));
+
+                if ($var1 < $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = $this->stringToFloat($request->get('5'));
+                $var2 = $this->stringToFloat($request->get('15'));
+
+                if ($var1 < $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = $this->stringToFloat($request->get('5'));
+                $var2 = $this->stringToFloat($request->get('6'));
+
+                if ($var1 < $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = $this->stringToFloat($request->get('12'));
+                $var2 = $this->stringToFloat($request->get('11'));
+
+                if ($var1 < $var2){
+                    return $dependenceRender;
+                }
+
+                $var1 = $this->stringToFloat($request->get('12'));
+                $var2 = $this->stringToFloat($request->get('13'));
+
+                if ($var1 < $var2){
+                    return $dependenceRender;
+                }
+
+
+
                 $this->courseworkRepository->addCourseworkResult5($request, $this->getUser());
                 break;
         }
