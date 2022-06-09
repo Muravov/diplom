@@ -134,7 +134,7 @@ class CourseworkController extends AbstractController
                 $var2 = round($this->stringToFloat($request->get('13')) * deg2rad(sin($this->stringToFloat($request->get('18')))), 10);
 
                 if ($var1 !== $var2){
-                    //return $dependenceRender;
+                    return $dependenceRender;
                 }
 
                 $var1 = round($this->stringToFloat($request->get('21')) * 0.85 * 1000, 10);
@@ -243,20 +243,6 @@ class CourseworkController extends AbstractController
 
                 $var1 = $this->stringToFloat($request->get('5'));
                 $var2 = $this->stringToFloat($request->get('6'));
-
-                if ($var1 < $var2){
-                    return $dependenceRender;
-                }
-
-                $var1 = $this->stringToFloat($request->get('12'));
-                $var2 = $this->stringToFloat($request->get('11'));
-
-                if ($var1 < $var2){
-                    return $dependenceRender;
-                }
-
-                $var1 = $this->stringToFloat($request->get('12'));
-                $var2 = $this->stringToFloat($request->get('13'));
 
                 if ($var1 < $var2){
                     return $dependenceRender;

@@ -187,7 +187,17 @@ class TeacherCheckCourseworkController extends AbstractController
     public function getParameters(Coursework $coursework, Request $request): Response
     {
         return new JsonResponse(
-            $this->courseworkRepository->getParameters($coursework, $request->get('parameter'))
+            $this->courseworkRepository->getParameters($coursework, $request->get('parameter1'), $request->get('parameter2'))
+        );
+    }
+
+    /**
+     * @Route("/get/parameters/name/{coursework}", name="get_parameters_name", methods="GET")
+     */
+    public function getParametersName(Coursework $coursework): Response
+    {
+        return new JsonResponse(
+            $this->courseworkRepository->getParametersName($coursework)
         );
     }
 }

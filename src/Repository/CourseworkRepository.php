@@ -704,17 +704,44 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
         return $courseworkResult;
     }
 
-    public function getParameters(Coursework $coursework, string $parameter): array
+    public function getParameters(Coursework $coursework, string $parameter1, string $parameter2): array
     {
-        $sql = sprintf("SELECT `COL 7`, `COL 8` FROM `сoursework_{$coursework->getId()}` WHERE `COL 6` = '{$parameter}'");
+        $parameter1 = sprintf("COL %s", (int)$parameter1 + 5);
+        $parameter2 = sprintf("COL %s", (int)$parameter2 + 5);
+
+        $sql = sprintf("SELECT `COL 1`, `{$parameter1}`, `{$parameter2}` FROM `сoursework_{$coursework->getId()}`");
         $query = mysqli_query($this->linki, $sql);
         $parameters = mysqli_fetch_all($query);
 
         $result = array();
-
+        $i = 0;
         foreach ($parameters as $item) {
+            if ($i == 0) {
+                $i++;
+                continue;
+            }
             $param = '[' . implode(', ', $item) . ']';
             array_push($result, $param);
+        }
+
+        return $result;
+    }
+
+    public function getParametersName(Coursework $coursework): array
+    {
+        $sql = sprintf("SELECT * FROM `сoursework_{$coursework->getId()}` WHERE `COL 1` = 'ФИО студента'");
+        $query = mysqli_query($this->linki, $sql);
+        $parameters = mysqli_fetch_all($query);
+
+        $result = array();
+        $i = 0;
+        foreach ($parameters[0] as $item) {
+            if ($i < 5) {
+                $i++;
+                continue;
+            }
+
+            array_push($result, $item);
         }
 
         return $result;
