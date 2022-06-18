@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Coursework;
+use App\Param;
 use App\Entity\User;
+use App\ParamResponse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Result;
@@ -720,8 +722,13 @@ class CourseworkRepository extends ServiceEntityRepository implements PasswordUp
                 $i++;
                 continue;
             }
-            $param = '[' . implode(', ', $item) . ']';
-            array_push($result, $param);
+
+            $response = new ParamResponse();
+
+            $response->student = $item[0];
+            $response->values = [$item[1], $item[2]];
+
+            array_push($result, $response);
         }
 
         return $result;
