@@ -94,8 +94,25 @@ class TeacherCheckCourseworkController extends AbstractController
         $student['fio'] = $courseworkResultData[4];
         $student['gruppa'] = $courseworkResultData[5];
 
+        switch ($coursework){
+            case 1:
+                $count = 34;
+                break;
+            case 2:
+                $count = 38;
+                break;
+            case 3:
+                $count = 44;
+                break;
+            case 4:
+                $count = 46;
+                break;
+            case 5:
+                $count = 35;
+                break;
+        }
         $courseworkResult = array();
-        for ($i = 9; $i < 35; $i++) {
+        for ($i = 9; $i <= $count; $i++) {
             array_push($courseworkResult, $courseworkResultData[$i]);
         }
 
