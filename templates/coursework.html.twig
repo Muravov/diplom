@@ -88,8 +88,52 @@
                 {% if result.status == 1 %}
                         <div class="pricing-header mx-auto text-center">
                                 <p class="fs-3">&#9989; Антиплагиат пройден</p>
+                                <p class="fs-3">&#9989; Одобрено преподавателем</p>
+                                <p class="fs-3">&#9989; Зависимости соблюдены</p>
                                 <p class="fs-3">Преподаватель: {{ result.7 }}</p>
                                 <p class="fs-3">Оценка: {{ result.8 }}</p>
+                        </div>
+                        
+                        <div class="row justify-content-center">
+                                <div class="col-md-4">
+                                        <table class="table table-responsive">
+                                                <thead>
+                                                <th scope="row">Параметр</th>
+                                                </thead>
+                                                <tbody>
+                                                {% for data in coursework %}
+                                                        <tr>
+                                                                <td>{{ data }}</td>
+                                                        </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                        </table>
+                                </div>
+                                <div class="col-md-4">
+                                        <table class="table table-responsive text-center">
+                                                <thead>
+                                                <th scope="row">Значение</th>
+                                                </thead>
+                                                <tbody>
+                                                {% set count = 0 %}
+                                                {% for data in result %}
+                                                        {% set count = count + 1 %}
+                                                        <tr>
+                                                                {% if count > 18 %}
+                                                                        {% if count is even %}
+                                                                                <td> {{ data }} </td>
+                                                                        {% endif %}
+                                                                {% endif %}
+
+                                                        </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                        </table>
+                                </div>
+                        </div>
+
+                        <div class="pricing-header mx-auto text-center">
+                                <p class="fs-3">Пройти повторно</p>
                         </div>
                         <form action="{{ path('app_antiplagiat') }}" method="post">
                                 <table class="table table-hover">
