@@ -99,34 +99,18 @@
                                         <table class="table table-responsive">
                                                 <thead>
                                                 <th scope="row">Параметр</th>
-                                                </thead>
-                                                <tbody>
-                                                {% for data in coursework %}
-                                                        <tr>
-                                                                <td>{{ data }}</td>
-                                                        </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                        </table>
-                                </div>
-                                <div class="col-md-4">
-                                        <table class="table table-responsive text-center">
-                                                <thead>
                                                 <th scope="row">Значение</th>
                                                 </thead>
                                                 <tbody>
                                                 {% set count = 0 %}
-                                                {% for data in result %}
-                                                        {% set count = count + 1 %}
-                                                        <tr>
-                                                                {% if count > 18 %}
-                                                                        {% if count is even %}
-                                                                                <td> {{ data }} </td>
-                                                                        {% endif %}
-                                                                {% endif %}
+                                                        {% for data in coursework %}
 
+                                                        <tr>
+                                                                <td>{{ data }}</td>
+                                                                <td> {{ result[count + 9] }} </td>
                                                         </tr>
-                                                {% endfor %}
+                                                                {% set count = count + 1 %}
+                                                        {% endfor %}
                                                 </tbody>
                                         </table>
                                 </div>

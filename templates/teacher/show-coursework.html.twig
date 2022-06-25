@@ -22,28 +22,24 @@
                                 <h3 class="display-7">&#9989; Антиплагиат пройден</h3>
                                 <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
                                         <h3 class="display-7">Выберите оценку</h3>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="assessment" id="flexSwitchCheckDefault" value="3">
-                                                <label class="form-check-label" for="flexSwitchCheckDefault">3</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="assessment" id="inlineRadio2" value="4">
-                                                <label class="form-check-label" for="inlineRadio2">4</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="radio" name="assessment" id="inlineRadio2" value="5">
-                                                <label class="form-check-label" for="inlineRadio2">5</label>
-                                        </div>
+                                        <select name="assessment" required>
+                                                <option selected disabled value="">Выберите оценку</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                        </select>
                                 </div>
+
                                 <div class="pricing-header mx-auto text-center">
                                         <p class="fs-5" id="fio-handler" data-fio-handler="{{ student.fio }}">Студент: {{ student.fio }}</p>
                                         <p class="fs-5">Группа: {{ student.gruppa }}</p>
 
                                 </div>
 
+                                <div class="column" style="width: 100%; position: relative;">
                                 <div class="row justify-content-between mx-auto text-center ms-1">
                                         <div class="col-md-2 ">
-                                                <p><input type="submit"  class="btn btn-success ms-1" name="success" value="Принять"></p>
+                                                <p><input type="submit" class="btn btn-success ms-1" name="success" value="Принять"></p>
                                         </div>
 
                                         <input type="hidden" name="courseworkResultId"
@@ -57,6 +53,8 @@
                                                 <p><input type="submit"  class="btn btn-danger ms-1" name="fuckup" value="Отклонить"></p>
                                         </div>
 
+                                </div>
+                                        <div id="warningMsg"></div>
                                 </div>
 
 
